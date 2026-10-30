@@ -1,0 +1,63 @@
+---
+import { profile } from "../data/profile";
+import SectionHeader from "./SectionHeader.astro";
+---
+
+<section id="about" class="section">
+  <div class="container-px">
+    <SectionHeader
+      index="01"
+      label="About"
+      title="A developer who sweats the last four pixels."
+      lede="Part engineer, part design nerd. I care about how interfaces work, how they feel, and how quickly they get out of the way."
+    />
+
+    <div class="about-grid">
+      <div class="about-copy" data-reveal>
+        <p class="about-copy__lead">{profile.summary[0]}</p>
+        <p>{profile.summary[1]}</p>
+
+        <blockquote class="pullquote">
+          <p>“{profile.quote}”</p>
+          <footer>— my design philosophy, probably</footer>
+        </blockquote>
+      </div>
+
+      <aside class="fact-card" data-reveal style="--reveal-delay: 120ms">
+        <div class="fact-card__bar">
+          <span>quick_facts.txt</span>
+          <span>●</span>
+        </div>
+
+        <div class="fact-card__body">
+          <dl>
+            {profile.facts.map((fact) => (
+              <div class="fact-row">
+                <dt>{fact.label}</dt>
+                <dd>{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div class="fact-card__status">
+          <span class="status-dot" aria-hidden="true"></span>
+          {profile.availability}
+        </div>
+      </aside>
+    </div>
+
+    <div class="toolbox" data-reveal style="--reveal-delay: 80ms">
+      {profile.skillGroups.map((group) => (
+        <div>
+          <p class="toolbox__label">{group.label}</p>
+          <div class="chips" style="margin-top: 0.9rem;">
+            {group.items.map((item) => (
+              <span class="chip">{item}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

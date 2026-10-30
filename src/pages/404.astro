@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="404 — Page not found"
+  description="This pixel doesn't exist. Head back to the portfolio."
+>
+  <main id="main" class="not-found">
+    <div class="not-found__box">
+      <p class="eyebrow" style="justify-content: center;">Error / 404</p>
+      <p class="not-found__code" aria-hidden="true">404</p>
+      <h1>This pixel doesn't exist.</h1>
+      <p>
+        The page you're looking for moved, vanished, or was never rendered.
+        Let's get you back to the good part.
+      </p>
+      <div class="not-found__actions">
+        <a class="btn btn--solid" href="/">Back home <span aria-hidden="true">←</span></a>
+        <a class="btn" href="/#projects">See projects <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </main>
+</Layout>

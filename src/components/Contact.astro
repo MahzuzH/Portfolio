@@ -1,0 +1,99 @@
+---
+import { profile } from "../data/profile";
+---
+
+<section id="contact" class="contact">
+  <div class="contact__bg" aria-hidden="true"></div>
+
+  <div class="container-px">
+    <div class="contact__inner">
+      <div data-reveal>
+        <p class="eyebrow eyebrow--light">05 / Contact</p>
+
+        <h2 class="contact__title">
+          Let's make something <em>worth clicking.</em>
+        </h2>
+
+        <p class="contact__copy">
+          I'm open to freelance projects and select full-time roles. If you've
+          got a tricky interface, a strange idea, or simply want to compare
+          keyboards — the inbox is open.
+        </p>
+
+        <div class="contact__actions">
+          <a class="btn btn--accent" href={`mailto:${profile.email}`}>
+            Start a conversation <span aria-hidden="true">↗</span>
+          </a>
+          <a class="btn btn--light" href="#projects">
+            See the work <span aria-hidden="true">↑</span>
+          </a>
+        </div>
+
+        <div class="contact__meta">
+          <span>
+            <span class="status-dot" aria-hidden="true"></span>
+            {profile.availability}
+          </span>
+          <span>{profile.location}</span>
+          <span>
+            <span data-local-time data-timezone={profile.timezone}>—</span>
+            {profile.timezoneShort}
+          </span>
+        </div>
+      </div>
+
+      <div class="contact-card" data-reveal style="--reveal-delay: 130ms">
+        <div class="contact-card__bar">
+          <span>CONTACT.TXT</span>
+          <span>● OPEN</span>
+        </div>
+
+        <div class="contact-card__body">
+          <p class="contact-card__label">Drop a line</p>
+          <a class="contact-email" href={`mailto:${profile.email}`}>
+            {profile.email}
+          </a>
+
+          <div class="copy-row">
+            <span class="contact-card__hint">No forms. Just email.</span>
+            <button
+              class="copy-btn"
+              type="button"
+              data-copy={profile.email}
+            >
+              <span class="copy-btn__icon" aria-hidden="true"></span>
+              <span data-copy-text>Copy email</span>
+            </button>
+            <span class="sr-only" role="status" aria-live="polite" data-copy-status></span>
+          </div>
+
+          <ul class="contact-socials">
+            {profile.socials.map((social) => (
+              <li>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>{social.label}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div class="contact-card__foot">
+            <span>
+              <span class="status-dot" aria-hidden="true"></span>
+              Available for work
+            </span>
+            <span>
+              <span data-local-time data-timezone={profile.timezone}>—</span>
+              {profile.timezoneShort}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

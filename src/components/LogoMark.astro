@@ -1,0 +1,38 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+// 7×8 pixel monogram "R"
+const rows = [
+  "1111110",
+  "1000110",
+  "1000010",
+  "1000110",
+  "1111110",
+  "1010000",
+  "1001000",
+  "1000100",
+];
+
+const cells = rows.flatMap((row, y) =>
+  row.split("").map((cell, x) => ({ x, y, on: cell === "1" })),
+);
+---
+
+<svg
+  class={className}
+  width="14"
+  height="16"
+  viewBox="0 0 7 8"
+  fill="currentColor"
+  shape-rendering="crispEdges"
+  aria-hidden="true"
+  focusable="false"
+>
+  {cells.filter((cell) => cell.on).map((cell) => (
+    <rect x={cell.x} y={cell.y} width="1" height="1" />
+  ))}
+</svg>

@@ -1,0 +1,23 @@
+---
+import { profile } from "../data/profile";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container-px footer-inner">
+    <p class="footer-brand">
+      <span class="status-dot" aria-hidden="true"></span>
+      <b>{profile.name}</b> © {year} · Built with Astro, Tailwind &amp; a 4px grid
+    </p>
+
+    <nav class="footer-links" aria-label="Footer">
+      <a href={profile.socials[0]?.href ?? "#"} target="_blank" rel="noopener noreferrer">
+        GitHub ↗
+      </a>
+      <a href="#top" class="footer-top">
+        Back to top <span aria-hidden="true">↑</span>
+      </a>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,15 @@
+---
+import { marqueeItems } from "../data/profile";
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {[0, 1].map(() => (
+      <div class="marquee__group">
+        {marqueeItems.map((item) => (
+          <span class="marquee__item">{item}</span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

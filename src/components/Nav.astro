@@ -1,0 +1,72 @@
+---
+import { profile } from "../data/profile";
+import LogoMark from "./LogoMark.astro";
+
+const firstName = profile.name.split(" ")[0] ?? profile.name;
+
+const links = [
+  { href: "#about", label: "About", index: "01" },
+  { href: "#experience", label: "Experience", index: "02" },
+  { href: "#education", label: "Education", index: "03" },
+  { href: "#projects", label: "Projects", index: "04" },
+  { href: "#contact", label: "Contact", index: "05" },
+];
+---
+
+<div class="scroll-progress" aria-hidden="true">
+  <div class="scroll-progress__bar" data-progress></div>
+</div>
+
+<header class="site-header">
+  <div class="container-px nav-inner">
+    <a href="#top" class="brand" aria-label={`${profile.name} — back to top`}>
+      <span class="brand__mark">
+        <LogoMark />
+      </span>
+      <span class="brand__name">
+        {firstName}<span style="color: var(--color-accent)">.</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      {links.map((link) => (
+        <a class="nav-link" href={link.href} data-nav-link={link.href.slice(1)}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <a href="#contact" class="btn nav-cta">
+      Let's talk <span aria-hidden="true">↗</span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span class="sr-only">Open menu</span>
+      <span class="nav-toggle__bars" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+    <nav aria-label="Mobile">
+      {links.map((link) => (
+        <a class="mobile-menu__link" href={link.href}>
+          {link.label}
+          <span>{link.index} / 05</span>
+        </a>
+      ))}
+    </nav>
+    <a href="#contact" class="btn btn--accent mobile-menu__cta">
+      Start a conversation <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</header>

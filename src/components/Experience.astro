@@ -1,0 +1,70 @@
+---
+import { experience, profile } from "../data/profile";
+import SectionHeader from "./SectionHeader.astro";
+---
+
+<section id="experience" class="section">
+  <div class="container-px">
+    <SectionHeader
+      index="02"
+      label="Experience"
+      title="Where I've been."
+      lede="Six years across product teams and studios — following the work from fuzzy brief to shipped interface."
+    />
+
+    <div class="timeline">
+      {experience.map((job, index) => (
+        <article class="job" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+          <div class="job__aside">
+            <p class="job__period">{job.period}</p>
+            {job.current && <span class="current-badge">Now</span>}
+            <p class="job__location">{job.location}</p>
+          </div>
+
+          <div>
+            <div class="job__head">
+              <h3 class="job__role">{job.role}</h3>
+              <a
+                class="job__company"
+                href={job.companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {job.company} ↗
+              </a>
+            </div>
+
+            <p class="job__summary">{job.summary}</p>
+
+            <ul class="job__bullets">
+              {job.bullets.map((bullet) => (
+                <li>{bullet}</li>
+              ))}
+            </ul>
+
+            <div class="job__tags">
+              {job.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="timeline-footer" data-reveal>
+      {profile.resumeUrl ? (
+        <a class="text-link" href={profile.resumeUrl}>
+          Download résumé <span aria-hidden="true">↓</span>
+        </a>
+      ) : (
+        <a
+          class="text-link"
+          href={`mailto:${profile.email}?subject=Resume%20request`}
+        >
+          Ask for my full résumé <span aria-hidden="true">↗</span>
+        </a>
+      )}
+    </div>
+  </div>
+</section>

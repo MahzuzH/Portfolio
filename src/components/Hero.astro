@@ -1,0 +1,83 @@
+---
+import { profile } from "../data/profile";
+import CodeWindow from "./CodeWindow.astro";
+---
+
+<section id="top" class="hero">
+  <div class="hero__grid-bg" aria-hidden="true"></div>
+
+  <div class="container-px">
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <div class="hero__meta-row" data-reveal>
+          <p class="hero__name">
+            <b>{profile.name}</b> — {profile.role}
+          </p>
+          <span class="availability">
+            <span class="status-dot" aria-hidden="true"></span>
+            {profile.availability}
+            <span class="availability__note">/ {profile.availabilityNote}</span>
+          </span>
+        </div>
+
+        <h1 class="hero__title" data-reveal style="--reveal-delay: 70ms">
+          {profile.headlineTop}
+          <span class="hero__title-accent">{profile.headlineAccent}</span>
+        </h1>
+
+        <p class="hero__intro" data-reveal style="--reveal-delay: 120ms">
+          {profile.intro}
+        </p>
+
+        <div class="hero__actions" data-reveal style="--reveal-delay: 180ms">
+          <a href="#projects" class="btn btn--solid">
+            See my work <span aria-hidden="true">↓</span>
+          </a>
+          <a href="#contact" class="btn">
+            Get in touch <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="hero__stats" data-reveal style="--reveal-delay: 240ms">
+          {profile.stats.map((stat) => (
+            <div>
+              <p class="hero__stat-value">{stat.value}</p>
+              <p class="hero__stat-label">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="hero__visual" data-reveal style="--reveal-delay: 200ms">
+        <svg
+          class="hero__spark hero__spark--a"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M10 0h4v10h10v4H14v10h-4V14H0v-4h10z" />
+        </svg>
+
+        <div class="code-stack">
+          <CodeWindow />
+        </div>
+
+        <div class="hero__sticker">
+          <span class="status-dot" aria-hidden="true"></span>
+          Built on a <b>4px grid</b>
+        </div>
+
+        <svg
+          class="hero__spark hero__spark--b"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M10 0h4v10h10v4H14v10h-4V14H0v-4h10z" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>

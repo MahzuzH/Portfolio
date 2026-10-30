@@ -1,0 +1,87 @@
+---
+import { profile, projects } from "../data/profile";
+import ProjectCover from "./ProjectCover.astro";
+import SectionHeader from "./SectionHeader.astro";
+
+const githubUrl =
+  profile.socials.find((social) => social.label === "GitHub")?.href ?? "#";
+---
+
+<section id="projects" class="section">
+  <div class="container-px">
+    <SectionHeader
+      index="04"
+      label="Projects"
+      title="Selected work."
+      lede="A few things I've built recently — some for clients, some for the joy of making a small idea real."
+    />
+
+    <div class="projects-grid">
+      {projects.map((project, index) => {
+        const external = !project.href.startsWith("#");
+        return (
+          <article
+            class:list={["project", project.featured && "project--featured"]}
+            data-reveal
+            style={`--reveal-delay: ${index * 60}ms`}
+          >
+            <ProjectCover project={project} index={index + 1} />
+
+            <div class="project__body">
+              <div class="project__meta">
+                <span class="project__index">P_{String(index + 1).padStart(2, "0")}</span>
+                <span>{project.year} · {project.label}</span>
+              </div>
+
+              <h3 class="project__title">
+                <a
+                  href={project.href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                >
+                  {project.title} <span aria-hidden="true">↗</span>
+                </a>
+              </h3>
+
+              <p class="project__tagline">{project.tagline}</p>
+              {project.featured && (
+                <p class="project__description">{project.description}</p>
+              )}
+
+              <div class="project__tags">
+                {project.tags.map((tag) => (
+                  <span>{tag}</span>
+                ))}
+              </div>
+
+              <div class="project__links">
+                <a
+                  href={project.href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  aria-label={`Open the ${project.title} live site`}
+                >
+                  Live site <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${project.title} source code`}
+                >
+                  Source <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <div class="projects-footer" data-reveal>
+      <a class="btn" href={githubUrl} target="_blank" rel="noopener noreferrer">
+        More experiments on GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</section>

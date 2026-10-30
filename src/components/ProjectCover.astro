@@ -1,0 +1,38 @@
+---
+import type { Project } from "../data/profile";
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const number = String(index).padStart(2, "0");
+---
+
+<div
+  class={`cover cover--${project.cover}`}
+  style={`--cover-bg: ${project.coverBg}; --cover-ink: ${project.coverInk};`}
+  aria-hidden="true"
+>
+  <div class="cover__bar">
+    <span>PROJECT_{number}</span>
+    <span>{project.year}</span>
+  </div>
+
+  <div class="cover__stage">
+    <span class="cover__spark cover__spark--a"></span>
+    <span class="cover__spark cover__spark--b"></span>
+    <span class="cover__spark cover__spark--c"></span>
+
+    <div class="cover__panel">
+      <span class="cover__mark">{project.mark}</span>
+      <span class="cover__label">{project.label}</span>
+    </div>
+  </div>
+
+  <div class="cover__bar cover__bar--bottom">
+    <span>{project.badge}</span>
+    <span class="cover__bar-dots"><i></i><i></i><i></i></span>
+  </div>
+</div>

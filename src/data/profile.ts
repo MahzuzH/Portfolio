@@ -1,0 +1,286 @@
+/**
+ * ─────────────────────────────────────────────────────────────
+ *  ALL SITE CONTENT LIVES HERE.
+ *  Replace the placeholder persona, links, and copy with your own.
+ *  Search for "PLACEHOLDER" to find anything that must be swapped.
+ * ─────────────────────────────────────────────────────────────
+ */
+
+export const profile = {
+  name: "Mahzuz Hazman",
+  firstName: "Mahzuz",
+  role: "Software Engineer",
+  location: "Bandung, Indonesia",
+  timezone: "Asia/Jakarta",
+  timezoneShort: "WIB",
+  email: "mhzhzmn@gmail.com", // PLACEHOLDER
+  siteUrl: "https://mhzhzmn.github.io", // PLACEHOLDER
+
+  availability: "Open to new work",
+  availabilityNote: "Freelance & full-time · 2 slots",
+  headlineTop: "Code with",
+  headlineAccent: "character.",
+
+  intro:
+    "I'm a software engineer in Bandung building fast, accessible interfaces that don't take themselves too seriously. Currently focused on design systems and the small details people feel but never notice.",
+
+  summary: [
+    "I sit in the space between engineering and design — close enough to the code to care about bundle sizes, close enough to the canvas to care about the last four pixels. For the past six years I've helped product teams turn fuzzy ideas into interfaces that feel obvious.",
+    "These days I lead frontend at a small product studio, maintain a design system used by four squads, and spend my evenings making pixel art and questionable side projects.",
+  ],
+
+  quote: "Good interfaces feel obvious. Getting there is anything but.",
+
+  resumeUrl: "", // Optional: add /resume.pdf to public/ and set this to "/resume.pdf"
+
+  stats: [
+    { value: "6+", label: "years shipping for the web" },
+    { value: "30+", label: "products & experiments launched" },
+    { value: "4", label: "design systems kept alive" },
+  ],
+
+  facts: [
+    {
+      label: "Currently",
+      value: "Senior Frontend Engineer @ Northstar Labs",
+    },
+    {
+      label: "Focus",
+      value: "Design systems, accessibility, interface motion",
+    },
+    {
+      label: "Learning",
+      value: "Rust, WebGPU & generative pixel art",
+    },
+    {
+      label: "Off the clock",
+      value: "Film cameras, flat whites, loud keyboards",
+    },
+  ],
+
+  skillGroups: [
+    {
+      label: "Languages",
+      items: ["TypeScript", "JavaScript", "HTML / CSS", "SQL", "Go (learning)"],
+    },
+    {
+      label: "Frameworks",
+      items: ["Astro", "React", "Next.js", "Svelte", "Tailwind CSS"],
+    },
+    {
+      label: "Tooling",
+      items: ["Vite", "Storybook", "Figma", "Git", "Playwright"],
+    },
+  ],
+
+  socials: [
+    { label: "GitHub", href: "https://github.com/your-handle" }, // PLACEHOLDER
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/your-handle" }, // PLACEHOLDER
+    { label: "X / Twitter", href: "https://x.com/your-handle" }, // PLACEHOLDER
+  ],
+};
+
+export const marqueeItems = [
+  "TypeScript",
+  "Astro",
+  "React",
+  "Design systems",
+  "Accessibility",
+  "Interface motion",
+  "Tailwind CSS",
+  "Figma",
+  "Node.js",
+  "Pixel-perfect",
+  "Good coffee",
+];
+
+export type Job = {
+  period: string;
+  role: string;
+  company: string;
+  companyUrl: string;
+  location: string;
+  current?: boolean;
+  summary: string;
+  bullets: string[];
+  tags: string[];
+};
+
+export const experience: Job[] = [
+  {
+    period: "2023 — Present",
+    role: "Senior Frontend Engineer",
+    company: "Northstar Labs",
+    companyUrl: "https://example.com", // PLACEHOLDER
+    location: "Bandung · Remote",
+    current: true,
+    summary:
+      "Leading frontend craft and the design system behind four product teams.",
+    bullets: [
+      "Rebuilt the design system with a three-person team; adoption grew from 20% to 85% of product surfaces.",
+      "Cut median LCP by 38% by replacing render-blocking bundles and introducing performance budgets.",
+      "Mentored three engineers and started a weekly UI review that shipped 40+ polished components.",
+    ],
+    tags: ["TypeScript", "React", "Storybook", "Design systems"],
+  },
+  {
+    period: "2021 — 2023",
+    role: "Frontend Engineer",
+    company: "Bumi Digital",
+    companyUrl: "https://example.com", // PLACEHOLDER
+    location: "Jakarta",
+    summary:
+      "Built data-heavy dashboards for a fintech platform used by 2,000+ analysts.",
+    bullets: [
+      "Shipped a real-time analytics dashboard that became the second most-used surface in the product.",
+      "Led a migration from Create React App to Vite, taking cold builds from six minutes to under forty seconds.",
+      "Drove an accessibility pass across core flows, bringing key screens to WCAG 2.1 AA.",
+    ],
+    tags: ["Vue", "TypeScript", "Tailwind CSS", "Vitest"],
+  },
+  {
+    period: "2019 — 2021",
+    role: "UI Engineer",
+    company: "Kecil Studio",
+    companyUrl: "https://example.com", // PLACEHOLDER
+    location: "Bandung · Hybrid",
+    summary:
+      "Shipped marketing sites and product interfaces for a dozen early-stage clients.",
+    bullets: [
+      "Designed and built 12+ responsive sites, often solo from Figma file to production deploy.",
+      "Created a reusable CMS template system that cut new site setup from two weeks to three days.",
+      "Introduced the studio's first shared component library and visual QA checklist.",
+    ],
+    tags: ["JavaScript", "SCSS", "Webflow", "GSAP"],
+  },
+];
+
+export const education = [
+  {
+    period: "2015 — 2019",
+    degree: "B.Sc. Computer Science",
+    school: "Universitas Indonesia",
+    note: "Graduated with honors · GPA 3.72 / 4.00",
+    detail:
+      "Thesis on reducing cognitive load in dashboard navigation. Focused on human–computer interaction and web systems.",
+    tags: ["HCI", "Data structures", "Web systems"],
+  },
+  {
+    period: "2020 — 2021",
+    degree: "UI Design Specialization",
+    school: "Interaction Design Foundation",
+    note: "Certification track · 8 courses",
+    detail:
+      "Visual hierarchy, typography, and interaction design fundamentals, applied directly to product work.",
+    tags: ["UI design", "Typography", "Research"],
+  },
+];
+
+export const certifications = [
+  { year: "2024", name: "Web Accessibility", issuer: "Google" },
+  { year: "2022", name: "Advanced React", issuer: "Frontend Masters" },
+  { year: "2021", name: "Design Systems", issuer: "Interaction Design Foundation" },
+];
+
+export type CoverStyle = "dither" | "checker" | "rings" | "grid" | "stripes";
+
+export type Project = {
+  title: string;
+  mark: string;
+  label: string;
+  year: string;
+  tagline: string;
+  description: string;
+  tags: string[];
+  href: string;
+  repo: string;
+  featured?: boolean;
+  cover: CoverStyle;
+  coverBg: string;
+  coverInk: string;
+  badge: string;
+};
+
+export const projects: Project[] = [
+  {
+    title: "Pixelsmith",
+    mark: "PX",
+    label: "Pixel editor",
+    year: "2025",
+    tagline: "A pixel-art editor that fits in a browser tab.",
+    description:
+      "A keyboard-first canvas editor with layers, palettes, and export to PNG or spritesheet. Built to learn the Canvas API and shipped to 1.2k GitHub stars.",
+    tags: ["TypeScript", "Canvas", "Vite"],
+    href: "https://example.com/pixelsmith", // PLACEHOLDER
+    repo: "https://github.com/your-handle/pixelsmith", // PLACEHOLDER
+    featured: true,
+    cover: "dither",
+    coverBg: "#FFD8C9",
+    coverInk: "#15140E",
+    badge: "Open source · 1.2k ★",
+  },
+  {
+    title: "Warung",
+    mark: "WR",
+    label: "POS system",
+    year: "2024",
+    tagline: "Point-of-sale for small coffee shops.",
+    description:
+      "Offline-first POS with inventory, receipts, and daily reports. Designed for a 10-inch tablet and one very busy barista.",
+    tags: ["Astro", "Supabase", "Tailwind"],
+    href: "https://example.com/warung", // PLACEHOLDER
+    repo: "https://github.com/your-handle/warung", // PLACEHOLDER
+    cover: "checker",
+    coverBg: "#F5E9B8",
+    coverInk: "#15140E",
+    badge: "Client work · 3 cafés",
+  },
+  {
+    title: "Tide",
+    mark: "TD",
+    label: "Focus timer",
+    year: "2024",
+    tagline: "A focus timer with generative soundscapes.",
+    description:
+      "A tiny Pomodoro app that composes ambient loops as you work. No accounts, no streaks, no guilt.",
+    tags: ["React", "Web Audio", "Zustand"],
+    href: "https://example.com/tide", // PLACEHOLDER
+    repo: "https://github.com/your-handle/tide", // PLACEHOLDER
+    cover: "rings",
+    coverBg: "#D8E8C8",
+    coverInk: "#15140E",
+    badge: "Side project",
+  },
+  {
+    title: "Atlas API",
+    mark: "AT",
+    label: "API directory",
+    year: "2023",
+    tagline: "A directory of Indonesian public APIs.",
+    description:
+      "Searchable, community-maintained index of 120+ public APIs with docs, status, and examples.",
+    tags: ["Next.js", "MDX", "Vercel"],
+    href: "https://example.com/atlas", // PLACEHOLDER
+    repo: "https://github.com/your-handle/atlas", // PLACEHOLDER
+    cover: "grid",
+    coverBg: "#C9DEEC",
+    coverInk: "#15140E",
+    badge: "Community · 120+ APIs",
+  },
+  {
+    title: "Portfolio v3",
+    mark: "V3",
+    label: "Personal site",
+    year: "2026",
+    tagline: "This very site, down to the last pixel.",
+    description:
+      "A static portfolio built with Astro and Tailwind. Custom pixel type system, CSS-only covers, and no image assets.",
+    tags: ["Astro", "Tailwind", "TypeScript"],
+    href: "#top",
+    repo: "https://github.com/your-handle/portfolio", // PLACEHOLDER
+    cover: "stripes",
+    coverBg: "#DDD2F0",
+    coverInk: "#15140E",
+    badge: "You are here",
+  },
+];
