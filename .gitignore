@@ -18,6 +18,10 @@ pnpm-debug.log*
 .env
 .env.production
 
+# skills
+skills-lock.json
+skills/
+
 # macOS / editors
 .DS_Store
 .vscode/
