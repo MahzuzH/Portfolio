@@ -15,11 +15,15 @@ export const profile = {
   timezoneShort: "WIB",
   email: "mhzhzmn@gmail.com", // PLACEHOLDER
   siteUrl: "https://mhzhzmn.github.io", // PLACEHOLDER
+  profileImage: "/profile.png", // ganti dengan foto profilmu di public/profile.png
+  profileImageAlt: "Foto profil Mahzuz Hazman",
+  spotifyPlaylistUrl: "https://open.spotify.com/playlist/2vYTGA9oKjuxxxzBxCgOHT?si=8f5298a34e6e45e5", // PLACEHOLDER: isi dengan link playlist/album Spotify, contoh https://open.spotify.com/playlist/xxx
+  letterboxdUsername: "ncjuicer", // PLACEHOLDER: isi dengan username Letterboxd kamu
 
   availability: "Open to new work",
   availabilityNote: "Freelance & full-time · 2 slots",
-  headlineTop: "Code with",
-  headlineAccent: "character.",
+  headlineTop: "Mahzuz",
+  headlineAccent: "Hazman",
 
   intro:
     "I'm a software engineer in Bandung building fast, accessible interfaces that don't take themselves too seriously. Currently focused on design systems and the small details people feel but never notice.",
@@ -42,7 +46,7 @@ export const profile = {
   facts: [
     {
       label: "Currently",
-      value: "Senior Frontend Engineer @ Northstar Labs",
+      value: "IT Intern at PT. Shimada Karya Indonesia, Sumedang",
     },
     {
       label: "Focus",
@@ -50,22 +54,22 @@ export const profile = {
     },
     {
       label: "Learning",
-      value: "Rust, WebGPU & generative pixel art",
+      value: "Golang, REST APIs, and Next.js",
     },
     {
       label: "Off the clock",
-      value: "Film cameras, flat whites, loud keyboards",
+      value: "Music, coffee, and the occasional game of JRPG",
     },
   ],
 
   skillGroups: [
     {
       label: "Languages",
-      items: ["TypeScript", "JavaScript", "HTML / CSS", "SQL", "Go (learning)"],
+      items: ["PHP", "Python", "JavaScript", "HTML / CSS", "SQL", "Go (learning)"],
     },
     {
       label: "Frameworks",
-      items: ["Astro", "React", "Next.js", "Svelte", "Tailwind CSS"],
+      items: ["Laravel", "Astro", "React", "Next.js", "Tailwind CSS"],
     },
     {
       label: "Tooling",
@@ -74,9 +78,8 @@ export const profile = {
   ],
 
   socials: [
-    { label: "GitHub", href: "https://github.com/your-handle" }, // PLACEHOLDER
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/your-handle" }, // PLACEHOLDER
-    { label: "X / Twitter", href: "https://x.com/your-handle" }, // PLACEHOLDER
+    { label: "GitHub", href: "https://github.com/MahzuzH" }, // PLACEHOLDER
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/mahzuz-hazman" }, // PLACEHOLDER
   ],
 };
 
@@ -108,11 +111,11 @@ export type Job = {
 
 export const experience: Job[] = [
   {
-    period: "2023 — Present",
-    role: "Senior Frontend Engineer",
-    company: "Northstar Labs",
+    period: "2026, March — Present",
+    role: "IT Intern",
+    company: "PT. Shimada Karya Indonesia",
     companyUrl: "https://example.com", // PLACEHOLDER
-    location: "Bandung · Remote",
+    location: "Sumedang · On-site",
     current: true,
     summary:
       "Leading frontend craft and the design system behind four product teams.",
@@ -121,7 +124,7 @@ export const experience: Job[] = [
       "Cut median LCP by 38% by replacing render-blocking bundles and introducing performance budgets.",
       "Mentored three engineers and started a weekly UI review that shipped 40+ polished components.",
     ],
-    tags: ["TypeScript", "React", "Storybook", "Design systems"],
+    tags: ["Laravel"],
   },
   {
     period: "2021 — 2023",
@@ -157,22 +160,22 @@ export const experience: Job[] = [
 
 export const education = [
   {
-    period: "2015 — 2019",
-    degree: "B.Sc. Computer Science",
-    school: "Universitas Indonesia",
-    note: "Graduated with honors · GPA 3.72 / 4.00",
+    period: "2020-2026",
+    degree: "Bachelor of Informatics",
+    school: "Institut Teknologi Nasional Bandung",
+    note: "GPA 3.68 / 4.00",
     detail:
       "Thesis on reducing cognitive load in dashboard navigation. Focused on human–computer interaction and web systems.",
     tags: ["HCI", "Data structures", "Web systems"],
   },
   {
-    period: "2020 — 2021",
-    degree: "UI Design Specialization",
-    school: "Interaction Design Foundation",
-    note: "Certification track · 8 courses",
+    period: "2017 — 2020",
+    degree: "High School Diploma",
+    school: "SMAN 1 Subang",
+    note: "IPA (Science) track",
     detail:
-      "Visual hierarchy, typography, and interaction design fundamentals, applied directly to product work.",
-    tags: ["UI design", "Typography", "Research"],
+      "Became the head of website at Brainware of Smansa (BIOS), teaching peers about web design and development",
+    tags: ["Website", "Web Development"],
   },
 ];
 

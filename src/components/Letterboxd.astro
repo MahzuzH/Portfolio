@@ -1,0 +1,134 @@
+---
+import { profile } from "../data/profile";
+import SectionHeader from "./SectionHeader.astro";
+
+const letterboxdUsername = profile.letterboxdUsername;
+const lbTitle = letterboxdUsername ? "Recently Watched" : "Connect Letterboxd";
+
+let films: { title: string; year: string; link: string; poster: string; rating: string; watchedDate: string; review: string }[] = [];
+
+if (letterboxdUsername) {
+  try {
+    const res = await fetch(`https://letterboxd.com/${letterboxdUsername}/rss/`);
+    if (res.ok) {
+      const text = await res.text();
+      const itemMatches = text.match(/<item>([\s\S]*?)<\/item>/g) || [];
+
+      films = itemMatches.slice(0, 6).map((item) => {
+        const titleMatch = item.match(/<title>([\s\S]*?)<\/title>/);
+        const title = titleMatch ? titleMatch[1].replace(/\s*\(\d{4}\)\s*$/, "").trim() : "";
+        const yearMatch = item.match(/\((\d{4})\)/);
+        const year = yearMatch ? yearMatch[1] : "";
+        const linkMatch = item.match(/<link>([\s\S]*?)<\/link>/);
+        const link = linkMatch ? linkMatch[1].trim() : "#";
+        const pubDateMatch = item.match(/<pubDate>([\s\S]*?)<\/pubDate>/);
+        const pubDate = pubDateMatch ? pubDateMatch[1].trim() : "";
+        const descriptionMatch = item.match(/<description>([\s\S]*?)<\/description>/);
+        const description = descriptionMatch ? descriptionMatch[1] : "";
+
+        const ratingMatch = description.match(/★{1,5}/);
+        const rating = ratingMatch ? ratingMatch[0] : "";
+
+        const posterMatch = description.match(/<img[^>]+src="([^"]+)"/);
+        const poster = posterMatch ? posterMatch[1] : "";
+
+        // Extract review text: strip CDATA wrappers, img tags, rating stars, and remaining HTML
+        const reviewText = description
+          .replace(/<!\[CDATA\[/g, "")
+          .replace(/\]\]>/g, "")
+          .replace(/<img[^>]*>/g, "")
+          .replace(/★{1,5}/g, "")
+          .replace(/<[^>]*>/g, "")
+          .replace(/\s+/g, " ")
+          .trim();
+
+        const watchedDate = pubDate ? new Date(pubDate).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        }) : "";
+
+        return { title, year, link, poster, rating, watchedDate, review: reviewText };
+      });
+    }
+  } catch {
+    films = [];
+  }
+}
+---
+
+<section id="letterboxd" class="section">
+  <div class="container-px">
+    <SectionHeader
+      index="06"
+      label="Letterboxd"
+      title={lbTitle}
+      lede={
+        letterboxdUsername
+          ? "Log film terakhir yang ditonton — sinkronisasi otomatis dari Letterboxd."
+          : "Isi letterboxdUsername di src/data/profile.ts untuk menampilkan log Letterboxd."
+      }
+    />
+
+    <div class="letterboxd-section">
+    {letterboxdUsername ? (
+      <>
+        {films.length > 0 ? (
+          <div class="letterboxd-grid">
+            {films.map((film) => (
+              <article class="letterboxd-card">
+                <a href={film.link} target="_blank" rel="noopener noreferrer" class="letterboxd-card__link">
+                  {film.poster ? (
+                    <img src={film.poster} alt={film.title} class="letterboxd-card__poster" loading="lazy" />
+                  ) : (
+                    <div class="letterboxd-card__poster--empty"></div>
+                  )}
+                  <div class="letterboxd-card__body">
+                    <h3 class="letterboxd-card__title">{film.title}</h3>
+                    <div class="letterboxd-card__meta">
+                      {film.year && <span class="letterboxd-card__year">{film.year}</span>}
+                      {film.rating && <span class="letterboxd-card__rating">{film.rating}</span>}
+                      {film.watchedDate && <span class="letterboxd-card__date">{film.watchedDate}</span>}
+                    </div>
+                    {film.review && <p class="letterboxd-card__review">{film.review}</p>}
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div class="letterboxd-fallback">
+            <p class="letterboxd-fallback__text">
+              Tidak dapat memuat log Letterboxd. Kunjungi profil langsung:
+            </p>
+            <a
+              href={`https://letterboxd.com/${letterboxdUsername}/`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn"
+            >
+              Buka Letterboxd <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        )}
+      </>
+    ) : (
+      <div class="letterboxd-placeholder">
+        <p class="letterboxd-placeholder__text">
+          Belum ada username Letterboxd yang diatur. Tambahkan
+          <code>letterboxdUsername</code> di <code>src/data/profile.ts</code>, lalu
+          pasang username Letterboxd kamu.
+        </p>
+        <a
+          href="https://letterboxd.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn"
+        >
+          Buka Letterboxd <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    )}
+  </div>
+    </div>
+  </section>

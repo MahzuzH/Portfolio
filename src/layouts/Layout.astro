@@ -25,6 +25,7 @@ const personSchema = {
   description: profile.intro,
   email: `mailto:${profile.email}`,
   url: profile.siteUrl,
+  image: new URL(profile.profileImage, Astro.site ?? profile.siteUrl).href,
   sameAs: profile.socials.map((social) => social.href),
   address: {
     "@type": "PostalAddress",
@@ -46,6 +47,7 @@ const personSchema = {
     <meta name="theme-color" content="#f3efe4" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/profile.png" as="image" fetchpriority="high" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />

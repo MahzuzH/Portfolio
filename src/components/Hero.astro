@@ -1,6 +1,5 @@
 ---
 import { profile } from "../data/profile";
-import CodeWindow from "./CodeWindow.astro";
 ---
 
 <section id="top" class="hero">
@@ -59,8 +58,19 @@ import CodeWindow from "./CodeWindow.astro";
           <path d="M10 0h4v10h10v4H14v10h-4V14H0v-4h10z" />
         </svg>
 
-        <div class="code-stack">
-          <CodeWindow />
+        <div class="hero__portrait-wrap">
+          <img
+            class="hero__portrait"
+            src={profile.profileImage}
+            alt={profile.profileImageAlt}
+            width="400"
+            height="400"
+            fetchpriority="high"
+            decoding="async"
+            loading="eager"
+            onerror="this.style.display='none'; this.parentElement.classList.add('has-fallback')"
+          />
+          <div class="hero__portrait-fallback" aria-hidden="true"></div>
         </div>
 
         <div class="hero__sticker">

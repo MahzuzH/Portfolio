@@ -1,0 +1,62 @@
+---
+import { profile } from "../data/profile";
+import SectionHeader from "./SectionHeader.astro";
+
+const playlistId = profile.spotifyPlaylistUrl
+  ? profile.spotifyPlaylistUrl
+      .replace("https://open.spotify.com/playlist/", "")
+      .replace("https://open.spotify.com/embed/playlist/", "")
+      .split("?")[0]
+      .split("/")[0]
+  : "";
+
+const embedUrl = playlistId
+  ? `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`
+  : "";
+
+const spotifyTitle = playlistId ? "Now Playing" : "Connect Spotify";
+---
+
+<section id="spotify" class="section">
+  <div class="container-px">
+    <SectionHeader
+      index="05"
+      label="Now Playing"
+      title={spotifyTitle}
+      lede={playlistId ? "Rotation saat ini — klik untuk buka di Spotify." : "Isi spotifyPlaylistUrl di src/data/profile.ts untuk menampilkan playlist."}
+    />
+
+    <div class="spotify-section">
+    {playlistId ? (
+      <div class="spotify-wrap">
+        <iframe
+          class="spotify-frame"
+          src={embedUrl}
+          width="100%"
+          height="380"
+          frameBorder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          aria-label="Spotify playlist embed"
+        ></iframe>
+      </div>
+    ) : (
+      <div class="spotify-placeholder">
+        <p class="spotify-placeholder__text">
+          Belum ada playlist yang diatur. Tambahkan <code>spotifyPlaylistUrl</code> di
+          <code>src/data/profile.ts</code>, lalu pasang link playlist Spotify kamu.
+        </p>
+        <a
+          href="https://open.spotify.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn"
+        >
+          Buka Spotify <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    )}
+    </div>
+  </div>
+</section>
