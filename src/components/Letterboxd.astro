@@ -11,36 +11,36 @@ const letterboxdUrl = profile.letterboxdUsername
   {films.length > 0 ? (
     <div class="letterboxd-grid">
       {films.map((film, index) => (
-        <article class="letterboxd-card">
+        <article class="media-card">
           <a
             href={film.link}
             target="_blank"
             rel="noopener noreferrer"
-            class="letterboxd-card__link"
+            class="media-card__link"
           >
-            <div class="letterboxd-card__poster-wrap">
+            <div class="media-card__poster-wrap">
               {film.poster ? (
                 <img
                   src={film.poster}
                   alt={`Poster ${film.title}`}
-                  class="letterboxd-card__poster"
+                  class="media-card__poster"
                   width="600"
                   height="900"
                   loading="lazy"
                   decoding="async"
                 />
               ) : (
-                <div class="letterboxd-card__poster--empty"></div>
+                <div class="media-card__poster--empty"></div>
               )}
-              <span class="letterboxd-card__rank" aria-hidden="true">
+              <span class="media-card__rank" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}
               </span>
             </div>
-            <div class="letterboxd-card__body">
-              <h3 class="letterboxd-card__title">{film.title}</h3>
-              <div class="letterboxd-card__meta">
-                {film.year && <span class="letterboxd-card__year">{film.year}</span>}
-                {film.rating && <span class="letterboxd-card__rating">{film.rating}</span>}
+            <div class="media-card__body">
+              <h3 class="media-card__title">{film.title}</h3>
+              <div class="media-card__meta">
+                {film.year && <span class="media-card__year">{film.year}</span>}
+                {film.rating && <span class="media-card__rating">{film.rating}</span>}
               </div>
             </div>
           </a>

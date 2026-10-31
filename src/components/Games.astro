@@ -1,0 +1,45 @@
+---
+import { profile } from "../data/profile";
+
+const games = profile.topGames;
+---
+
+<div class="media-panel__inner letterboxd-section">
+  <div class="letterboxd-grid">
+    {games.map((game, index) => (
+      <article class="media-card">
+        <a
+          href={game.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="media-card__link"
+        >
+          <div class="media-card__poster-wrap">
+            <img
+              src={game.cover}
+              alt={`Box art ${game.title}`}
+              class="media-card__poster"
+              width="600"
+              height="900"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="media-card__rank" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          </div>
+          <div class="media-card__body">
+            <h3 class="media-card__title">{game.title}</h3>
+            <div class="media-card__meta">
+              <span>{game.year}</span>
+              <span>{game.platform}</span>
+              <span class="media-card__rating">{game.hours} played</span>
+            </div>
+          </div>
+        </a>
+      </article>
+    ))}
+  </div>
+
+  <p class="media-panel__note">Four I'd replay tomorrow.</p>
+</div>

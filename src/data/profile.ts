@@ -14,6 +14,15 @@ export type TopFilm = {
   link: string;
 };
 
+export type TopGame = {
+  title: string;
+  year: string;
+  platform: string;
+  hours: string;
+  cover: string;
+  link: string;
+};
+
 export const profile = {
   name: "Mahzuz Hazman",
   role: "Software Engineer",
@@ -58,8 +67,43 @@ export const profile = {
     },
   ] satisfies TopFilm[],
 
+  topGames: [
+    {
+      title: "Stardew Valley",
+      year: "2016",
+      platform: "PC",
+      hours: "76.4h",
+      cover: "https://images.igdb.com/igdb/image/upload/t_cover_big/coa93h.jpg",
+      link: "https://store.steampowered.com/app/413150/Stardew_Valley/",
+    },
+    {
+      title: "Hollow Knight",
+      year: "2017",
+      platform: "PC",
+      hours: "24.5h",
+      cover: "https://images.igdb.com/igdb/image/upload/t_cover_big/cobfzp.jpg",
+      link: "https://store.steampowered.com/app/367520/Hollow_Knight/",
+    },
+    {
+      title: "Octopath Traveler",
+      year: "2018",
+      platform: "PC",
+      hours: "13.2h",
+      cover: "https://images.igdb.com/igdb/image/upload/t_cover_big/cocj93.jpg",
+      link: "https://store.steampowered.com/app/921570/OCTOPATH_TRAVELER/",
+    },
+    {
+      title: "Hades",
+      year: "2020",
+      platform: "PC",
+      hours: "12.4h",
+      cover: "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9kr.jpg",
+      link: "https://store.steampowered.com/app/1145360/Hades/",
+    },
+  ] satisfies TopGame[],
+
   availability: "Open to new work",
-  availabilityNote: "Freelance & full-time · 2 slots",
+  availabilityNote: "Available for freelance and full-time opportunities.",
   headlineTop: "Mahzuz",
   headlineAccent: "Hazman",
 
@@ -161,7 +205,7 @@ export const sections = {
     index: "05",
     label: "Media",
     title: "What I'm into",
-    lede: "A playlist on repeat, and four films I keep coming back to.",
+    lede: "A playlist on repeat, four films I keep coming back to, and the games I sink hours into.",
   },
   contact: {
     index: "06",

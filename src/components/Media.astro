@@ -3,10 +3,12 @@ import { sections } from "../data/profile";
 import SectionHeader from "./SectionHeader.astro";
 import SpotifyPlayer from "./SpotifyPlayer.astro";
 import Letterboxd from "./Letterboxd.astro";
+import Games from "./Games.astro";
 
 const tabs = [
   { id: "spotify", index: "01", label: "Spotify" },
   { id: "letterboxd", index: "02", label: "Letterboxd" },
+  { id: "games", index: "03", label: "Games" },
 ];
 ---
 
@@ -51,6 +53,16 @@ const tabs = [
         hidden
       >
         <Letterboxd />
+      </div>
+      <div
+        class="media-panel"
+        id="media-panel-games"
+        role="tabpanel"
+        aria-labelledby="media-tab-games"
+        data-media-panel="games"
+        hidden
+      >
+        <Games />
       </div>
     </div>
   </div>

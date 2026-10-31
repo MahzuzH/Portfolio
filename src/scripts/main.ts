@@ -61,9 +61,10 @@ export { activateMediaTab };
 
 if (mediaTabs.length > 0 && mediaPanels.length > 0) {
   const hash = window.location.hash.slice(1);
-  activateMediaTab(hash === "letterboxd" ? "letterboxd" : "spotify");
-  // The browser jumped to #letterboxd before the panel was shown, so scroll again once heights are final.
-  if (hash === "letterboxd") document.getElementById("media")?.scrollIntoView();
+  const knownTab = ["spotify", "letterboxd", "games"].includes(hash);
+  activateMediaTab(knownTab ? hash : "spotify");
+  // The browser jumped to the tab's hash before the panel was shown, so scroll again once heights are final.
+  if (knownTab) document.getElementById("media")?.scrollIntoView();
 
   mediaTabs.forEach((tab, index) => {
     tab.addEventListener("click", () => {
@@ -89,7 +90,7 @@ if (mediaTabs.length > 0 && mediaPanels.length > 0) {
 
   window.addEventListener("hashchange", () => {
     const hash = window.location.hash.slice(1);
-    if (hash === "spotify" || hash === "letterboxd") {
+    if (hash === "spotify" || hash === "letterboxd" || hash === "games") {
       activateMediaTab(hash);
       document.getElementById("media")?.scrollIntoView();
     }
