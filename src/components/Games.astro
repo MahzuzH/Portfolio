@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { profile } from "../data/profile";
 
 const games = profile.topGames;
@@ -15,12 +16,14 @@ const games = profile.topGames;
           class="media-card__link"
         >
           <div class="media-card__poster-wrap">
-            <img
+            <Image
               src={game.cover}
               alt={`Box art ${game.title}`}
               class="media-card__poster"
-              width="600"
-              height="900"
+              width={264}
+              height={352}
+              widths={[264, 528]}
+              sizes="(min-width: 880px) 25vw, 50vw"
               loading="lazy"
               decoding="async"
             />

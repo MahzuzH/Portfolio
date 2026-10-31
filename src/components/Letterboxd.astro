@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { profile } from "../data/profile";
 
 const films = profile.topFilms;
@@ -20,12 +21,14 @@ const letterboxdUrl = profile.letterboxdUsername
           >
             <div class="media-card__poster-wrap">
               {film.poster ? (
-                <img
+                <Image
                   src={film.poster}
                   alt={`Poster ${film.title}`}
                   class="media-card__poster"
-                  width="600"
-                  height="900"
+                  width={600}
+                  height={900}
+                  widths={[300, 600]}
+                  sizes="(min-width: 880px) 25vw, 50vw"
                   loading="lazy"
                   decoding="async"
                 />
@@ -50,8 +53,8 @@ const letterboxdUrl = profile.letterboxdUsername
   ) : (
     <div class="letterboxd-placeholder">
       <p class="letterboxd-placeholder__text">
-        Belum ada film favorit yang diatur. Tambahkan <code>topFilms</code> di
-        <code>src/data/profile.ts</code> untuk menampilkan empat film pilihanmu.
+        No favourite films set yet. Add <code>topFilms</code> in
+        <code>src/data/profile.ts</code> to show four picks.
       </p>
     </div>
   )}
@@ -67,7 +70,7 @@ const letterboxdUrl = profile.letterboxdUsername
       rel="noopener noreferrer"
       class="btn"
     >
-      Buka Letterboxd <span aria-hidden="true">↗</span>
+      Open Letterboxd <span aria-hidden="true">↗</span>
     </a>
   </div>
 </div>

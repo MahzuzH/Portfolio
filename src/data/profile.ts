@@ -6,11 +6,21 @@
  * ─────────────────────────────────────────────────────────────
  */
 
+import type { ImageMetadata } from "astro";
+import goodWillHuntingPoster from "../assets/media/good-will-hunting-poster.jpg";
+import eternalSunshinePoster from "../assets/media/eternal-sunshine-poster.jpg";
+import dunePartTwoPoster from "../assets/media/dune-part-two-poster.jpg";
+import whiplashPoster from "../assets/media/whiplash-poster.jpg";
+import stardewValleyCover from "../assets/media/stardew-valley-cover.jpg";
+import hollowKnightCover from "../assets/media/hollow-knight-cover.jpg";
+import octopathTravelerCover from "../assets/media/octopath-traveler-cover.jpg";
+import hadesCover from "../assets/media/hades-cover.jpg";
+
 export type TopFilm = {
   title: string;
   year: string;
   rating?: string;
-  poster?: string;
+  poster?: ImageMetadata;
   link: string;
 };
 
@@ -19,7 +29,7 @@ export type TopGame = {
   year: string;
   platform: string;
   hours: string;
-  cover: string;
+  cover: ImageMetadata;
   link: string;
 };
 
@@ -32,7 +42,7 @@ export const profile = {
   email: "mhzhzmn@gmail.com",
   phone: "+6281322670257",
   profileImage: "/profile.webp",
-  profileImageAlt: "Foto profil Mahzuz Hazman",
+  profileImageAlt: "Portrait of Mahzuz Hazman",
   spotifyPlaylistUrl: "https://open.spotify.com/playlist/2vYTGA9oKjuxxxzBxCgOHT?si=8f5298a34e6e45e5",
   letterboxdUsername: "ncjuicer",
 
@@ -41,28 +51,28 @@ export const profile = {
       title: "Good Will Hunting",
       year: "1997",
       rating: "★★★★★",
-      poster: "https://a.ltrbxd.com/resized/film-poster/5/1/6/2/1/51621-good-will-hunting-0-600-0-900-crop.jpg?v=acb4766abd",
+      poster: goodWillHuntingPoster,
       link: "https://letterboxd.com/film/good-will-hunting/",
     },
     {
       title: "Eternal Sunshine of the Spotless Mind",
       year: "2004",
       rating: "★★★★★",
-      poster: "https://a.ltrbxd.com/resized/sm/upload/ay/bp/kl/1y/uBfQ7IGpi0jXSP3GPCzp9Pzm10v-0-600-0-900-crop.jpg?v=116621c401",
+      poster: eternalSunshinePoster,
       link: "https://letterboxd.com/film/eternal-sunshine-of-the-spotless-mind/",
     },
     {
       title: "Dune: Part Two",
       year: "2024",
       rating: "★★★★★",
-      poster: "https://a.ltrbxd.com/resized/film-poster/6/1/7/4/4/3/617443-dune-part-two-0-600-0-900-crop.jpg?v=cc533700f8",
+      poster: dunePartTwoPoster,
       link: "https://letterboxd.com/film/dune-part-two/",
     },
     {
       title: "Whiplash",
       year: "2014",
       rating: "★★★★★",
-      poster: "https://a.ltrbxd.com/resized/sm/upload/cl/dn/kr/f1/4C9LHDxMsoYI0S3iMPZdm3Oevwo-0-600-0-900-crop.jpg?v=d13ea36528",
+      poster: whiplashPoster,
       link: "https://letterboxd.com/film/whiplash-2014/",
     },
   ] satisfies TopFilm[],
@@ -73,7 +83,7 @@ export const profile = {
       year: "2016",
       platform: "PC",
       hours: "76.4h",
-      cover: "https://images.igdb.com/igdb/image/upload/t_cover_big/coa93h.jpg",
+      cover: stardewValleyCover,
       link: "https://store.steampowered.com/app/413150/Stardew_Valley/",
     },
     {
@@ -81,7 +91,7 @@ export const profile = {
       year: "2017",
       platform: "PC",
       hours: "24.5h",
-      cover: "https://images.igdb.com/igdb/image/upload/t_cover_big/cobfzp.jpg",
+      cover: hollowKnightCover,
       link: "https://store.steampowered.com/app/367520/Hollow_Knight/",
     },
     {
@@ -89,7 +99,7 @@ export const profile = {
       year: "2018",
       platform: "PC",
       hours: "13.2h",
-      cover: "https://images.igdb.com/igdb/image/upload/t_cover_big/cocj93.jpg",
+      cover: octopathTravelerCover,
       link: "https://store.steampowered.com/app/921570/OCTOPATH_TRAVELER/",
     },
     {
@@ -97,7 +107,7 @@ export const profile = {
       year: "2020",
       platform: "PC",
       hours: "12.4h",
-      cover: "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9kr.jpg",
+      cover: hadesCover,
       link: "https://store.steampowered.com/app/1145360/Hades/",
     },
   ] satisfies TopGame[],

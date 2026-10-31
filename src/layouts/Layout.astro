@@ -48,9 +48,13 @@ const personSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={profile.name} />
+    <meta property="og:image" content={image.href} />
+    <meta property="og:image:alt" content={profile.profileImageAlt} />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image.href} />
+    <meta name="twitter:image:alt" content={profile.profileImageAlt} />
 
     <script is:inline>
       document.documentElement.classList.add("js");
