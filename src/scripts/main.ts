@@ -44,6 +44,7 @@ const mediaPanels = Array.from(
 );
 
 function activateMediaTab(name: string, moveFocus = false) {
+  if (!mediaTabs.some((tab) => tab.dataset.mediaTab === name)) name = "spotify";
   mediaTabs.forEach((tab) => {
     const isActive = tab.dataset.mediaTab === name;
     tab.setAttribute("aria-selected", String(isActive));
@@ -56,9 +57,13 @@ function activateMediaTab(name: string, moveFocus = false) {
   });
 }
 
+export { activateMediaTab };
+
 if (mediaTabs.length > 0 && mediaPanels.length > 0) {
-  const initialTab = window.location.hash === "#letterboxd" ? "letterboxd" : "spotify";
-  activateMediaTab(initialTab);
+  const hash = window.location.hash.slice(1);
+  activateMediaTab(hash === "letterboxd" ? "letterboxd" : "spotify");
+  // The browser jumped to #letterboxd before the panel was shown, so scroll again once heights are final.
+  if (hash === "letterboxd") document.getElementById("media")?.scrollIntoView();
 
   mediaTabs.forEach((tab, index) => {
     tab.addEventListener("click", () => {
@@ -83,8 +88,10 @@ if (mediaTabs.length > 0 && mediaPanels.length > 0) {
   });
 
   window.addEventListener("hashchange", () => {
-    if (window.location.hash === "#spotify" || window.location.hash === "#letterboxd") {
-      activateMediaTab(window.location.hash.slice(1));
+    const hash = window.location.hash.slice(1);
+    if (hash === "spotify" || hash === "letterboxd") {
+      activateMediaTab(hash);
+      document.getElementById("media")?.scrollIntoView();
     }
   });
 }
@@ -185,7 +192,7 @@ const themeColorMeta = document.querySelector<HTMLMetaElement>(
 
 function setTheme(theme: "light" | "dark") {
   html.setAttribute("data-theme", theme);
-  themeToggle?.setAttribute("aria-pressed", theme === "dark");
+  themeToggle?.setAttribute("aria-pressed", String(theme === "dark"));
   themeColorMeta?.setAttribute(
     "content",
     theme === "dark" ? "#15140e" : "#f3efe4",

@@ -24,7 +24,10 @@ const letterboxdUrl = profile.letterboxdUsername
                   src={film.poster}
                   alt={`Poster ${film.title}`}
                   class="letterboxd-card__poster"
+                  width="600"
+                  height="900"
                   loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <div class="letterboxd-card__poster--empty"></div>

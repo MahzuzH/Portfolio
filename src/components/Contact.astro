@@ -1,5 +1,5 @@
 ---
-import { profile } from "../data/profile";
+import { profile, sections } from "../data/profile";
 ---
 
 <section id="contact" class="contact">
@@ -8,17 +8,13 @@ import { profile } from "../data/profile";
   <div class="container-px">
     <div class="contact__inner">
       <div data-reveal>
-        <p class="eyebrow eyebrow--light">06 / Contact</p>
+        <p class="eyebrow eyebrow--light">{sections.contact.index} / {sections.contact.label}</p>
 
         <h2 class="contact__title">
           Let's make something <em>worth clicking.</em>
         </h2>
 
-        <p class="contact__copy">
-          I'm open to freelance projects and select full-time roles. If you've
-          got a tricky interface, a strange idea, or simply want to compare
-          keyboards — the inbox is open.
-        </p>
+        <p class="contact__copy">{sections.contact.lede}</p>
 
         <div class="contact__actions">
           <a class="btn btn--accent" href={`mailto:${profile.email}`}>

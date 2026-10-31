@@ -1,8 +1,8 @@
-# Pixel Portfolio
+# Portfolio
 
-A single-page personal portfolio with a warm editorial layout and subtle pixel-art details. Built with Astro and Tailwind CSS, fully static, no image assets.
+A single-page personal portfolio with a warm editorial layout and subtle pixel-art details. Built with Astro and Tailwind CSS, fully static.
 
-The current content is a **placeholder persona** ("Raka Adhitama"). Everything is stored in one file so you can swap in your own details quickly.
+All content lives in **`src/data/profile.ts`**: name, links, experience, education, projects, films. Section numbers, labels, titles and nav come from the `sections` object in the same file, so they cannot drift apart.
 
 ## Commands
 
@@ -11,41 +11,32 @@ npm install
 npm run dev       # http://localhost:4321
 npm run build     # static output in dist/
 npm run preview   # preview the production build
+npm test          # unit tests (node:test, no extra dependency)
+npx astro check   # type check
 ```
 
 ## Make it yours
 
 ### 1. Content
 
-Edit **`src/data/profile.ts`**. It controls:
+Edit **`src/data/profile.ts`**. Empty strings are safe: an empty `resumeUrl` shows "Ask for my full résumé", an empty project `repo` hides the source link, an empty `companyUrl` shows the company as plain text.
 
-- Name, role, location, email, availability
-- Hero headline, intro, stats, quick facts
-- Skills, social links, marquee items
-- Work experience, education, certifications
-- Projects, URLs, cover colours and cover patterns
-
-Search for `PLACEHOLDER` in that file to find every link that needs replacing.
+- `profile.profileImage` — put a 400×400 image in `public/` (WebP keeps it small).
+- `profile.spotifyPlaylistUrl` — any Spotify playlist or embed link.
+- `profile.letterboxdUsername` and `profile.topFilms` — film cards. Use the `-0-600-0-900` Letterboxd poster size for thumbnails.
 
 ### 2. Links and SEO
 
-- `src/data/profile.ts` → email, social URLs, project URLs
-- `astro.config.mjs` → `site` (your production domain)
-- `public/robots.txt` → sitemap URL once you have a domain
+- `astro.config.mjs` → `site` (your production domain; canonical, Open Graph and JSON-LD all read it)
 - `src/layouts/Layout.astro` → default title/description if you want different SEO copy
 
 ### 3. Résumé (optional)
 
-The Experience section shows "Ask for my full résumé" while `profile.resumeUrl` is empty.
-
-To enable the download button:
-
-1. Add your PDF as `public/resume.pdf`
-2. Set `resumeUrl: "/resume.pdf"` in `src/data/profile.ts`
+Add your PDF as `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`.
 
 ### 4. Project covers
 
-Covers are generated entirely with CSS — no images needed. Each project in `src/data/profile.ts` accepts:
+Covers are generated with CSS, no images needed. Each project accepts:
 
 ```ts
 cover: "dither" | "checker" | "rings" | "grid" | "stripes";
@@ -53,54 +44,40 @@ coverBg: "#FFD8C9";
 coverInk: "#15140E";
 ```
 
-Swap the two colours to recolour a cover. Use the `mark` field for the short project monogram.
-
 ## Design notes
 
 - **Display type:** Pixelify Sans
 - **Body type:** Space Grotesk
 - **Mono labels:** JetBrains Mono
-- **Palette:** warm paper, ink, vermilion accent, pastel covers
+- **Palette:** warm paper, ink, vermilion accent, pastel covers. Dark mode swaps the tokens in `global.css`.
 - **Pixel language:** square corners, 1.5px rules, hard offset shadows, dot grids, dithered covers, stepped hover transitions
-- Fonts are self-hosted via Fontsource, so the site has no runtime dependency on Google Fonts.
+- Fonts are self-hosted via Fontsource (Latin subsets only), so the site has no runtime dependency on Google Fonts.
 
 ## Structure
 
 ```text
 src/
-├─ data/profile.ts          # all editable content
-├─ layouts/Layout.astro     # head, fonts, SEO, scripts
+├─ data/profile.ts          # all editable content + section list
+├─ layouts/Layout.astro     # head, fonts, SEO, theme init, scripts
 ├─ components/              # nav, hero, sections, covers, footer
 ├─ pages/index.astro        # single-page assembly
 ├─ pages/404.astro
-├─ scripts/main.ts          # menu, scroll spy, reveal, copy, clock
+├─ scripts/main.ts          # menu, tabs, scroll spy, reveal, copy, clock, theme
+├─ scripts/spotify.ts       # playlist URL parsing (+ spotify.test.ts)
 └─ styles/global.css        # design system + responsive styles
 ```
 
 ## Accessibility & performance
 
 - Semantic landmarks and heading order
-- Skip link, visible focus states, keyboard-friendly menu
+- Skip link, visible focus states, keyboard-friendly menu and media tabs
 - `prefers-reduced-motion` support
 - Decorative visuals hidden from assistive tech
-- Static HTML/CSS/JS, no client framework, no external images
+- Static HTML/CSS/JS, no client framework, small WebP photo, poster thumbnails
 - Email is shown as text, not an image, and the copy button announces success
 
 ## Deploy
 
-Works on any static host.
-
-**Vercel / Netlify / Cloudflare Pages**
-
-- Build command: `npm run build`
-- Output directory: `dist`
+Deploys to GitHub Pages via `.github/workflows/deploy.yml` on every push to `main` (runs `astro check`, `npm test`, then the build). Works on any static host too: build command `npm run build`, output directory `dist`.
 
 Set the final domain in `astro.config.mjs` before deploying so canonical and Open Graph URLs are correct.
-
-## Possible next steps
-
-- Add a real OG image (1200×630) and reference it in `Layout.astro`
-- Add project screenshots inside the CSS covers if you want more realism
-- Add a sitemap integration (`@astrojs/sitemap`)
-- Add a small analytics script if desired
-- Replace the generic favicon with a custom monogram if you change the name

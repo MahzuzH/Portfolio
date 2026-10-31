@@ -16,17 +16,15 @@ export type TopFilm = {
 
 export const profile = {
   name: "Mahzuz Hazman",
-  firstName: "Mahzuz",
   role: "Software Engineer",
   location: "Bandung, Indonesia",
   timezone: "Asia/Jakarta",
   timezoneShort: "WIB",
-  email: "mhzhzmn@gmail.com", // PLACEHOLDER
-  siteUrl: "https://mhzhzmn.github.io", // PLACEHOLDER
-  profileImage: "/profile.png", // ganti dengan foto profilmu di public/profile.png
+  email: "mhzhzmn@gmail.com",
+  profileImage: "/profile.webp",
   profileImageAlt: "Foto profil Mahzuz Hazman",
-  spotifyPlaylistUrl: "https://open.spotify.com/playlist/2vYTGA9oKjuxxxzBxCgOHT?si=8f5298a34e6e45e5", // PLACEHOLDER: isi dengan link playlist/album Spotify, contoh https://open.spotify.com/playlist/xxx
-  letterboxdUsername: "ncjuicer", // PLACEHOLDER: isi dengan username Letterboxd kamu
+  spotifyPlaylistUrl: "https://open.spotify.com/playlist/2vYTGA9oKjuxxxzBxCgOHT?si=8f5298a34e6e45e5",
+  letterboxdUsername: "ncjuicer",
 
   topFilms: [
     {
@@ -47,14 +45,14 @@ export const profile = {
       title: "Dune: Part Two",
       year: "2024",
       rating: "★★★★★",
-      poster: "https://a.ltrbxd.com/resized/film-poster/6/1/7/4/4/3/617443-dune-part-two-0-1000-0-1500-crop.jpg?v=cc533700f8",
+      poster: "https://a.ltrbxd.com/resized/film-poster/6/1/7/4/4/3/617443-dune-part-two-0-600-0-900-crop.jpg?v=cc533700f8",
       link: "https://letterboxd.com/film/dune-part-two/",
     },
     {
       title: "Whiplash",
       year: "2014",
       rating: "★★★★★",
-      poster: "https://a.ltrbxd.com/resized/sm/upload/cl/dn/kr/f1/4C9LHDxMsoYI0S3iMPZdm3Oevwo-0-1000-0-1500-crop.jpg?v=d13ea36528",
+      poster: "https://a.ltrbxd.com/resized/sm/upload/cl/dn/kr/f1/4C9LHDxMsoYI0S3iMPZdm3Oevwo-0-600-0-900-crop.jpg?v=d13ea36528",
       link: "https://letterboxd.com/film/whiplash-2014/",
     },
   ] satisfies TopFilm[],
@@ -68,8 +66,8 @@ export const profile = {
     "I'm a software engineer in Bandung building fast, accessible interfaces that don't take themselves too seriously. Currently focused on design systems and the small details people feel but never notice.",
 
   summary: [
-    "I sit in the space between engineering and design — close enough to the code to care about bundle sizes, close enough to the canvas to care about the last four pixels. For the past six years I've helped product teams turn fuzzy ideas into interfaces that feel obvious.",
-    "These days I lead frontend at a small product studio, maintain a design system used by four squads, and spend my evenings making pixel art and questionable side projects.",
+    "I sit in the space between engineering and design — close enough to the code to care about bundle sizes, close enough to the canvas to care about the last four pixels. I like turning fuzzy ideas into interfaces that feel obvious.",
+    "I'm currently an IT intern at PT. Shimada Karya Indonesia, learning Go, REST APIs and Next.js, and spending my evenings on pixel art and questionable side projects.",
   ],
 
   quote: "Good interfaces feel obvious. Getting there is anything but.",
@@ -77,9 +75,9 @@ export const profile = {
   resumeUrl: "", // Optional: add /resume.pdf to public/ and set this to "/resume.pdf"
 
   stats: [
-    { value: "6+", label: "years shipping for the web" },
-    { value: "30+", label: "products & experiments launched" },
-    { value: "4", label: "design systems kept alive" },
+    { value: "2026", label: "IT intern at PT. Shimada Karya Indonesia" },
+    { value: "3.68", label: "GPA at ITENAS Bandung" },
+    { value: "10+", label: "side projects built and broken" },
   ],
 
   facts: [
@@ -122,6 +120,49 @@ export const profile = {
   ],
 };
 
+/** Ordered nav + section numbering. `Nav.astro` and each section read this, so numbers cannot drift. */
+export const sections = {
+  about: {
+    index: "01",
+    label: "About",
+    title: "A developer who sweats the last four pixels.",
+    lede: "Part engineer, part design nerd. I care about how interfaces work, how they feel, and how quickly they get out of the way.",
+  },
+  experience: {
+    index: "02",
+    label: "Experience",
+    title: "Where I've been.",
+    lede: "Internship and coursework so far — following the work from a fuzzy brief to a shipped interface.",
+  },
+  education: {
+    index: "03",
+    label: "Education",
+    title: "Always still learning.",
+    lede: "A formal foundation in computer science, plus a design education I keep adding to — one course and side quest at a time.",
+  },
+  projects: {
+    index: "04",
+    label: "Projects",
+    title: "Selected work.",
+    lede: "A few things I've built recently — some for clients, some for the joy of making a small idea real.",
+  },
+  media: {
+    index: "05",
+    label: "Media",
+    title: "Now Playing & Favorites",
+    lede: "Musik yang lagi diputar dan empat film yang paling saya suka.",
+  },
+  contact: {
+    index: "06",
+    label: "Contact",
+    title: "Let's make something worth clicking.",
+    lede: "I'm open to freelance projects and select full-time roles. If you've got a tricky interface or a strange idea, the inbox is open.",
+  },
+};
+
+export const githubUrl =
+  profile.socials.find((social) => social.label === "GitHub")?.href ?? "#";
+
 export const marqueeItems = [
   "TypeScript",
   "Astro",
@@ -153,47 +194,15 @@ export const experience: Job[] = [
     period: "2026, March — Present",
     role: "IT Intern",
     company: "PT. Shimada Karya Indonesia",
-    companyUrl: "https://example.com", // PLACEHOLDER
+    companyUrl: "",
     location: "Sumedang · On-site",
     current: true,
-    summary:
-      "Leading frontend craft and the design system behind four product teams.",
+    summary: "IT intern working on internal web tooling.",
     bullets: [
-      "Rebuilt the design system with a three-person team; adoption grew from 20% to 85% of product surfaces.",
-      "Cut median LCP by 38% by replacing render-blocking bundles and introducing performance budgets.",
-      "Mentored three engineers and started a weekly UI review that shipped 40+ polished components.",
+      "Write PHP/Laravel features for internal web systems.",
+      "Handle day-to-day data entry and reporting tasks.",
     ],
     tags: ["Laravel"],
-  },
-  {
-    period: "2021 — 2023",
-    role: "Frontend Engineer",
-    company: "Bumi Digital",
-    companyUrl: "https://example.com", // PLACEHOLDER
-    location: "Jakarta",
-    summary:
-      "Built data-heavy dashboards for a fintech platform used by 2,000+ analysts.",
-    bullets: [
-      "Shipped a real-time analytics dashboard that became the second most-used surface in the product.",
-      "Led a migration from Create React App to Vite, taking cold builds from six minutes to under forty seconds.",
-      "Drove an accessibility pass across core flows, bringing key screens to WCAG 2.1 AA.",
-    ],
-    tags: ["Vue", "TypeScript", "Tailwind CSS", "Vitest"],
-  },
-  {
-    period: "2019 — 2021",
-    role: "UI Engineer",
-    company: "Kecil Studio",
-    companyUrl: "https://example.com", // PLACEHOLDER
-    location: "Bandung · Hybrid",
-    summary:
-      "Shipped marketing sites and product interfaces for a dozen early-stage clients.",
-    bullets: [
-      "Designed and built 12+ responsive sites, often solo from Figma file to production deploy.",
-      "Created a reusable CMS template system that cut new site setup from two weeks to three days.",
-      "Introduced the studio's first shared component library and visual QA checklist.",
-    ],
-    tags: ["JavaScript", "SCSS", "Webflow", "GSAP"],
   },
 ];
 
@@ -253,8 +262,8 @@ export const projects: Project[] = [
     description:
       "A keyboard-first canvas editor with layers, palettes, and export to PNG or spritesheet. Built to learn the Canvas API and shipped to 1.2k GitHub stars.",
     tags: ["TypeScript", "Canvas", "Vite"],
-    href: "https://example.com/pixelsmith", // PLACEHOLDER
-    repo: "https://github.com/your-handle/pixelsmith", // PLACEHOLDER
+    href: "#",
+    repo: "",
     featured: true,
     cover: "dither",
     coverBg: "#FFD8C9",
@@ -270,8 +279,8 @@ export const projects: Project[] = [
     description:
       "Offline-first POS with inventory, receipts, and daily reports. Designed for a 10-inch tablet and one very busy barista.",
     tags: ["Astro", "Supabase", "Tailwind"],
-    href: "https://example.com/warung", // PLACEHOLDER
-    repo: "https://github.com/your-handle/warung", // PLACEHOLDER
+    href: "#",
+    repo: "",
     cover: "checker",
     coverBg: "#F5E9B8",
     coverInk: "#15140E",
@@ -286,8 +295,8 @@ export const projects: Project[] = [
     description:
       "A tiny Pomodoro app that composes ambient loops as you work. No accounts, no streaks, no guilt.",
     tags: ["React", "Web Audio", "Zustand"],
-    href: "https://example.com/tide", // PLACEHOLDER
-    repo: "https://github.com/your-handle/tide", // PLACEHOLDER
+    href: "#",
+    repo: "",
     cover: "rings",
     coverBg: "#D8E8C8",
     coverInk: "#15140E",
@@ -302,8 +311,8 @@ export const projects: Project[] = [
     description:
       "Searchable, community-maintained index of 120+ public APIs with docs, status, and examples.",
     tags: ["Next.js", "MDX", "Vercel"],
-    href: "https://example.com/atlas", // PLACEHOLDER
-    repo: "https://github.com/your-handle/atlas", // PLACEHOLDER
+    href: "#",
+    repo: "",
     cover: "grid",
     coverBg: "#C9DEEC",
     coverInk: "#15140E",
@@ -319,7 +328,7 @@ export const projects: Project[] = [
       "A static portfolio built with Astro and Tailwind. Custom pixel type system, CSS-only covers, and no image assets.",
     tags: ["Astro", "Tailwind", "TypeScript"],
     href: "#top",
-    repo: "https://github.com/your-handle/portfolio", // PLACEHOLDER
+    repo: "https://github.com/MahzuzH/Portfolio",
     cover: "stripes",
     coverBg: "#DDD2F0",
     coverInk: "#15140E",

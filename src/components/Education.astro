@@ -1,16 +1,11 @@
 ---
-import { certifications, education } from "../data/profile";
+import { certifications, education, sections } from "../data/profile";
 import SectionHeader from "./SectionHeader.astro";
 ---
 
 <section id="education" class="section">
   <div class="container-px">
-    <SectionHeader
-      index="03"
-      label="Education"
-      title="Always still learning."
-      lede="A formal foundation in computer science, plus a design education I keep adding to — one course and side quest at a time."
-    />
+    <SectionHeader {...sections.education} />
 
     <div class="edu-grid">
       {education.map((item, index) => (

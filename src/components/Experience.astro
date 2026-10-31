@@ -1,16 +1,11 @@
 ---
-import { experience, profile } from "../data/profile";
+import { experience, profile, sections } from "../data/profile";
 import SectionHeader from "./SectionHeader.astro";
 ---
 
 <section id="experience" class="section">
   <div class="container-px">
-    <SectionHeader
-      index="02"
-      label="Experience"
-      title="Where I've been."
-      lede="Six years across product teams and studios — following the work from fuzzy brief to shipped interface."
-    />
+    <SectionHeader {...sections.experience} />
 
     <div class="timeline">
       {experience.map((job, index) => (
@@ -24,14 +19,18 @@ import SectionHeader from "./SectionHeader.astro";
           <div>
             <div class="job__head">
               <h3 class="job__role">{job.role}</h3>
-              <a
-                class="job__company"
-                href={job.companyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {job.company} ↗
-              </a>
+              {job.companyUrl ? (
+                <a
+                  class="job__company"
+                  href={job.companyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {job.company} ↗
+                </a>
+              ) : (
+                <span class="job__company">{job.company}</span>
+              )}
             </div>
 
             <p class="job__summary">{job.summary}</p>

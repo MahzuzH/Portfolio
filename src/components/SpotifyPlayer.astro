@@ -1,13 +1,8 @@
 ---
 import { profile } from "../data/profile";
+import { parsePlaylistId } from "../scripts/spotify";
 
-const playlistId = profile.spotifyPlaylistUrl
-  ? profile.spotifyPlaylistUrl
-      .replace("https://open.spotify.com/playlist/", "")
-      .replace("https://open.spotify.com/embed/playlist/", "")
-      .split("?")[0]
-      .split("/")[0]
-  : "";
+const playlistId = parsePlaylistId(profile.spotifyPlaylistUrl);
 
 const embedUrl = playlistId
   ? `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`

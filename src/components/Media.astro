@@ -1,4 +1,5 @@
 ---
+import { sections } from "../data/profile";
 import SectionHeader from "./SectionHeader.astro";
 import SpotifyPlayer from "./SpotifyPlayer.astro";
 import Letterboxd from "./Letterboxd.astro";
@@ -6,12 +7,7 @@ import Letterboxd from "./Letterboxd.astro";
 
 <section id="media" class="section">
   <div class="container-px">
-    <SectionHeader
-      index="05"
-      label="Media"
-      title="Now Playing & Favorites"
-      lede="Musik yang lagi diputar dan empat film yang paling saya suka."
-    />
+    <SectionHeader {...sections.media} />
 
     <div class="media-tabs" role="tablist" aria-label="Media" data-reveal>
       <button

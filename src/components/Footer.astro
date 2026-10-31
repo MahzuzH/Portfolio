@@ -1,5 +1,5 @@
 ---
-import { profile } from "../data/profile";
+import { githubUrl, profile } from "../data/profile";
 
 const year = new Date().getFullYear();
 ---
@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
     </p>
 
     <nav class="footer-links" aria-label="Footer">
-      <a href={profile.socials[0]?.href ?? "#"} target="_blank" rel="noopener noreferrer">
+      <a href={githubUrl} target="_blank" rel="noopener noreferrer">
         GitHub ↗
       </a>
       <a href="#top" class="footer-top">

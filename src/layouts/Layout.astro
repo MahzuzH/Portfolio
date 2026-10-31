@@ -1,7 +1,5 @@
 ---
-import "@fontsource-variable/pixelify-sans";
-import "@fontsource-variable/space-grotesk";
-import "@fontsource-variable/jetbrains-mono";
+
 import "../styles/global.css";
 import { profile } from "../data/profile";
 
@@ -15,7 +13,8 @@ const {
   description = profile.intro,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? profile.siteUrl).href;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const image = new URL(profile.profileImage, Astro.site);
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -24,14 +23,9 @@ const personSchema = {
   jobTitle: profile.role,
   description: profile.intro,
   email: `mailto:${profile.email}`,
-  url: profile.siteUrl,
-  image: new URL(profile.profileImage, Astro.site ?? profile.siteUrl).href,
+  url: canonical,
+  image: image.href,
   sameAs: profile.socials.map((social) => social.href),
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Jakarta",
-    addressCountry: "ID",
-  },
 };
 ---
 
@@ -47,7 +41,7 @@ const personSchema = {
     <meta name="theme-color" content="#f3efe4" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preload" href="/profile.png" as="image" fetchpriority="high" />
+    <link rel="preload" href={profile.profileImage} as="image" fetchpriority="high" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -64,8 +58,12 @@ const personSchema = {
     <script is:inline>
       (() => {
         const saved = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const theme = saved ?? (prefersDark ? "dark" : "light");
+        const valid = saved === "dark" || saved === "light";
+        const theme = valid
+          ? saved
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
         document.documentElement.setAttribute("data-theme", theme);
       })();
     </script>

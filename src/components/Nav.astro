@@ -1,17 +1,14 @@
 ---
-import { profile } from "../data/profile";
+import { profile, sections } from "../data/profile";
 import LogoMark from "./LogoMark.astro";
 
 const firstName = profile.name.split(" ")[0] ?? profile.name;
 
-const links = [
-  { href: "#about", label: "About", index: "01" },
-  { href: "#experience", label: "Experience", index: "02" },
-  { href: "#education", label: "Education", index: "03" },
-  { href: "#projects", label: "Projects", index: "04" },
-  { href: "#media", label: "Media", index: "05" },
-  { href: "#contact", label: "Contact", index: "06" },
-];
+const links = Object.entries(sections).map(([id, section]) => ({
+  href: `#${id}`,
+  label: section.label,
+  index: section.index,
+}));
 
 const totalLinks = String(links.length).padStart(2, "0");
 ---

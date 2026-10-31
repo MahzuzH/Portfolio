@@ -1,20 +1,12 @@
 ---
-import { profile, projects } from "../data/profile";
+import { githubUrl, projects, sections } from "../data/profile";
 import ProjectCover from "./ProjectCover.astro";
 import SectionHeader from "./SectionHeader.astro";
-
-const githubUrl =
-  profile.socials.find((social) => social.label === "GitHub")?.href ?? "#";
 ---
 
 <section id="projects" class="section">
   <div class="container-px">
-    <SectionHeader
-      index="04"
-      label="Projects"
-      title="Selected work."
-      lede="A few things I've built recently — some for clients, some for the joy of making a small idea real."
-    />
+    <SectionHeader {...sections.projects} />
 
     <div class="projects-grid">
       {projects.map((project, index) => {

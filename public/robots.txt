@@ -1,5 +1,2 @@
 User-agent: *
 Allow: /
-
-# Update this once the production domain is set
-Sitemap: https://rakaadhitama.dev/sitemap.xml

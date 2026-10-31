@@ -1,16 +1,11 @@
 ---
-import { profile } from "../data/profile";
+import { profile, sections } from "../data/profile";
 import SectionHeader from "./SectionHeader.astro";
 ---
 
 <section id="about" class="section">
   <div class="container-px">
-    <SectionHeader
-      index="01"
-      label="About"
-      title="A developer who sweats the last four pixels."
-      lede="Part engineer, part design nerd. I care about how interfaces work, how they feel, and how quickly they get out of the way."
-    />
+    <SectionHeader {...sections.about} />
 
     <div class="about-grid">
       <div class="about-copy" data-reveal>
