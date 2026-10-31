@@ -31,6 +31,7 @@ import { profile, sections } from "../data/profile";
             {profile.availability}
           </span>
           <span>{profile.location}</span>
+          <a href={`tel:${profile.phone}`}>{profile.phone}</a>
           <span>
             <span data-local-time data-timezone={profile.timezone}>—</span>
             {profile.timezoneShort}

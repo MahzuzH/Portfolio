@@ -190,8 +190,21 @@ const themeColorMeta = document.querySelector<HTMLMetaElement>(
   "meta[name='theme-color']",
 );
 
+/* Spotify renders its own colours, so the embed URL carries the theme (1 = light, 0 = dark). */
+function syncEmbedTheme(theme: "light" | "dark") {
+  const embed = document.querySelector<HTMLElement>("[data-spotify-embed]");
+  const frame = embed?.querySelector<HTMLIFrameElement>("iframe");
+  const src = embed?.dataset.embedSrc;
+  if (!frame || !src) return;
+  const next = src.replace("theme=1", `theme=${theme === "dark" ? 0 : 1}`);
+  if (frame.src !== next) frame.src = next;
+}
+
+syncEmbedTheme((html.getAttribute("data-theme") as "light" | "dark" | null) ?? "light");
+
 function setTheme(theme: "light" | "dark") {
   html.setAttribute("data-theme", theme);
+  syncEmbedTheme(theme);
   themeToggle?.setAttribute("aria-pressed", String(theme === "dark"));
   themeColorMeta?.setAttribute(
     "content",

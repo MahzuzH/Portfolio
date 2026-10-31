@@ -1,5 +1,5 @@
 ---
-import { certifications, education, sections } from "../data/profile";
+import { activities, certifications, education, profile, sections } from "../data/profile";
 import SectionHeader from "./SectionHeader.astro";
 ---
 
@@ -27,15 +27,35 @@ import SectionHeader from "./SectionHeader.astro";
       ))}
     </div>
 
+    <div class="edu-grid" style="margin-top: 1rem;">
+      {activities.map((activity, index) => (
+        <article class="edu-card" data-reveal style={`--reveal-delay: ${index * 70}ms`}>
+          <div class="edu-card__top">
+            <span>ORG.0{index + 1}</span>
+            <span>{activity.period}</span>
+          </div>
+          <h3>{activity.role}</h3>
+          <p class="edu-card__school">{activity.org}</p>
+          <div class="edu-card__tags edu-card__tags--text">
+            {activity.bullets.map((bullet) => (
+              <span>{bullet}</span>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+
     <div class="cert-strip" data-reveal>
       <p class="toolbox__label">Certifications &amp; continuing education</p>
       <div class="cert-list">
         {certifications.map((cert) => (
-          <div class="cert-item">
+          <a class="cert-item" href={cert.url} target="_blank" rel="noopener noreferrer">
             <span class="cert-item__year">{cert.year}</span>
             <span class="cert-item__name">{cert.name}</span>
-            <span class="cert-item__issuer">{cert.issuer}</span>
-          </div>
+            <span class="cert-item__issuer">
+              {cert.issuer}{cert.expires && ` · until ${cert.expires}`}
+            </span>
+          </a>
         ))}
       </div>
     </div>

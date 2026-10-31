@@ -4,26 +4,30 @@ import { parsePlaylistId } from "../scripts/spotify";
 
 const playlistId = parsePlaylistId(profile.spotifyPlaylistUrl);
 
+// Spotify renders the embed in its own colours; `data-theme` 0 = dark, 1 = light.
 const embedUrl = playlistId
-  ? `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator`
+  ? `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=1`
   : "";
 ---
 
 <div class="media-panel__inner spotify-section">
   {playlistId ? (
-    <div class="spotify-wrap">
+    <div class="spotify-wrap" data-spotify-embed data-embed-src={embedUrl}>
       <iframe
         class="spotify-frame"
         src={embedUrl}
+        title="Spotify playlist player"
         width="100%"
         height="380"
         frameborder="0"
         allowfullscreen=""
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
-        aria-label="Spotify playlist embed"
       ></iframe>
     </div>
+    <p class="media-panel__note">
+      Player not loading? <a href={`https://open.spotify.com/playlist/${playlistId}`} target="_blank" rel="noopener noreferrer">Open it on Spotify ↗</a>
+    </p>
   ) : (
     <div class="spotify-placeholder">
       <p class="spotify-placeholder__text">

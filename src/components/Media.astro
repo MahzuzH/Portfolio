@@ -3,6 +3,11 @@ import { sections } from "../data/profile";
 import SectionHeader from "./SectionHeader.astro";
 import SpotifyPlayer from "./SpotifyPlayer.astro";
 import Letterboxd from "./Letterboxd.astro";
+
+const tabs = [
+  { id: "spotify", index: "01", label: "Spotify" },
+  { id: "letterboxd", index: "02", label: "Letterboxd" },
+];
 ---
 
 <section id="media" class="section">
@@ -10,32 +15,21 @@ import Letterboxd from "./Letterboxd.astro";
     <SectionHeader {...sections.media} />
 
     <div class="media-tabs" role="tablist" aria-label="Media" data-reveal>
-      <button
-        class="media-tab"
-        id="media-tab-spotify"
-        type="button"
-        role="tab"
-        aria-selected="true"
-        aria-controls="media-panel-spotify"
-        tabindex="0"
-        data-media-tab="spotify"
-      >
-        <span class="media-tab__index" aria-hidden="true">01</span>
-        Spotify
-      </button>
-      <button
-        class="media-tab"
-        id="media-tab-letterboxd"
-        type="button"
-        role="tab"
-        aria-selected="false"
-        aria-controls="media-panel-letterboxd"
-        tabindex="-1"
-        data-media-tab="letterboxd"
-      >
-        <span class="media-tab__index" aria-hidden="true">02</span>
-        Letterboxd
-      </button>
+      {tabs.map((tab) => (
+        <button
+          class="media-tab"
+          id={`media-tab-${tab.id}`}
+          type="button"
+          role="tab"
+          aria-selected={tab.id === "spotify" ? "true" : "false"}
+          aria-controls={`media-panel-${tab.id}`}
+          tabindex={tab.id === "spotify" ? 0 : -1}
+          data-media-tab={tab.id}
+        >
+          <span class="media-tab__index" aria-hidden="true">{tab.index}</span>
+          {tab.label}
+        </button>
+      ))}
     </div>
 
     <div class="media-panels">
@@ -44,7 +38,6 @@ import Letterboxd from "./Letterboxd.astro";
         id="media-panel-spotify"
         role="tabpanel"
         aria-labelledby="media-tab-spotify"
-        tabindex="0"
         data-media-panel="spotify"
       >
         <SpotifyPlayer />
@@ -54,7 +47,6 @@ import Letterboxd from "./Letterboxd.astro";
         id="media-panel-letterboxd"
         role="tabpanel"
         aria-labelledby="media-tab-letterboxd"
-        tabindex="0"
         data-media-panel="letterboxd"
         hidden
       >
