@@ -6,6 +6,14 @@
  * ─────────────────────────────────────────────────────────────
  */
 
+export type TopFilm = {
+  title: string;
+  year: string;
+  rating?: string;
+  poster?: string;
+  link: string;
+};
+
 export const profile = {
   name: "Mahzuz Hazman",
   firstName: "Mahzuz",
@@ -19,6 +27,37 @@ export const profile = {
   profileImageAlt: "Foto profil Mahzuz Hazman",
   spotifyPlaylistUrl: "https://open.spotify.com/playlist/2vYTGA9oKjuxxxzBxCgOHT?si=8f5298a34e6e45e5", // PLACEHOLDER: isi dengan link playlist/album Spotify, contoh https://open.spotify.com/playlist/xxx
   letterboxdUsername: "ncjuicer", // PLACEHOLDER: isi dengan username Letterboxd kamu
+
+  topFilms: [
+    {
+      title: "Good Will Hunting",
+      year: "1997",
+      rating: "★★★★★",
+      poster: "https://a.ltrbxd.com/resized/film-poster/5/1/6/2/1/51621-good-will-hunting-0-600-0-900-crop.jpg?v=acb4766abd",
+      link: "https://letterboxd.com/film/good-will-hunting/",
+    },
+    {
+      title: "Eternal Sunshine of the Spotless Mind",
+      year: "2004",
+      rating: "★★★★★",
+      poster: "https://a.ltrbxd.com/resized/sm/upload/ay/bp/kl/1y/uBfQ7IGpi0jXSP3GPCzp9Pzm10v-0-600-0-900-crop.jpg?v=116621c401",
+      link: "https://letterboxd.com/film/eternal-sunshine-of-the-spotless-mind/",
+    },
+    {
+      title: "Dune: Part Two",
+      year: "2024",
+      rating: "★★★★★",
+      poster: "https://a.ltrbxd.com/resized/film-poster/6/1/7/4/4/3/617443-dune-part-two-0-1000-0-1500-crop.jpg?v=cc533700f8",
+      link: "https://letterboxd.com/film/dune-part-two/",
+    },
+    {
+      title: "Whiplash",
+      year: "2014",
+      rating: "★★★★★",
+      poster: "https://a.ltrbxd.com/resized/sm/upload/cl/dn/kr/f1/4C9LHDxMsoYI0S3iMPZdm3Oevwo-0-1000-0-1500-crop.jpg?v=d13ea36528",
+      link: "https://letterboxd.com/film/whiplash-2014/",
+    },
+  ] satisfies TopFilm[],
 
   availability: "Open to new work",
   availabilityNote: "Freelance & full-time · 2 slots",

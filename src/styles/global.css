@@ -2180,7 +2180,67 @@
     margin-top: 1.75rem;
   }
 }
-/* Spotify */
+/* Media tabs */
+  .media-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .media-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-width: 9.5rem;
+    border: 1.5px solid var(--color-ink);
+    background-color: var(--color-paper-2);
+    color: var(--color-ink);
+    padding: 0.78rem 1.05rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 var(--color-ink);
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease,
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+
+  .media-tab:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-ink);
+  }
+
+  .media-tab:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-ink);
+  }
+
+  .media-tab[aria-selected="true"] {
+    background-color: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  .media-tab__index {
+    color: color-mix(in srgb, currentColor 55%, transparent);
+    font-size: 0.55rem;
+  }
+
+  @media (max-width: 480px) {
+    .media-tab {
+      flex: 1 1 0;
+      min-width: 0;
+      padding-inline: 0.5rem;
+    }
+  }
+
+  /* Spotify */
   .spotify-section {
     display: flex;
     flex-direction: column;
@@ -2293,6 +2353,10 @@
     height: 100%;
   }
 
+  .letterboxd-card__poster-wrap {
+    position: relative;
+  }
+
   .letterboxd-card__poster {
     display: block;
     width: 100%;
@@ -2300,6 +2364,24 @@
     object-fit: cover;
     image-rendering: pixelated;
     background-color: var(--color-line);
+  }
+
+  .letterboxd-card__rank {
+    position: absolute;
+    top: 0.55rem;
+    left: 0.55rem;
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 1.5px solid var(--color-ink);
+    background-color: var(--color-accent);
+    box-shadow: 2px 2px 0 var(--color-ink);
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
   }
 
   .letterboxd-card__poster--empty {
@@ -2338,9 +2420,6 @@
     color: var(--color-accent-ink);
   }
 
-  .letterboxd-card__date {
-    color: var(--color-ink-soft);
-
   .letterboxd-card__review {
     margin-top: 0.75rem;
     color: var(--color-ink-soft);
@@ -2348,6 +2427,11 @@
     font-size: 0.82rem;
     line-height: 1.55;
   }
+
+  .letterboxd-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1.25rem;
   }
 
   .letterboxd-fallback {

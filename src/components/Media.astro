@@ -1,0 +1,69 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+import SpotifyPlayer from "./SpotifyPlayer.astro";
+import Letterboxd from "./Letterboxd.astro";
+---
+
+<section id="media" class="section">
+  <div class="container-px">
+    <SectionHeader
+      index="05"
+      label="Media"
+      title="Now Playing & Favorites"
+      lede="Musik yang lagi diputar dan empat film yang paling saya suka."
+    />
+
+    <div class="media-tabs" role="tablist" aria-label="Media" data-reveal>
+      <button
+        class="media-tab"
+        id="media-tab-spotify"
+        type="button"
+        role="tab"
+        aria-selected="true"
+        aria-controls="media-panel-spotify"
+        tabindex="0"
+        data-media-tab="spotify"
+      >
+        <span class="media-tab__index" aria-hidden="true">01</span>
+        Spotify
+      </button>
+      <button
+        class="media-tab"
+        id="media-tab-letterboxd"
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="media-panel-letterboxd"
+        tabindex="-1"
+        data-media-tab="letterboxd"
+      >
+        <span class="media-tab__index" aria-hidden="true">02</span>
+        Letterboxd
+      </button>
+    </div>
+
+    <div class="media-panels">
+      <div
+        class="media-panel"
+        id="media-panel-spotify"
+        role="tabpanel"
+        aria-labelledby="media-tab-spotify"
+        tabindex="0"
+        data-media-panel="spotify"
+      >
+        <SpotifyPlayer />
+      </div>
+      <div
+        class="media-panel"
+        id="media-panel-letterboxd"
+        role="tabpanel"
+        aria-labelledby="media-tab-letterboxd"
+        tabindex="0"
+        data-media-panel="letterboxd"
+        hidden
+      >
+        <Letterboxd />
+      </div>
+    </div>
+  </div>
+</section>

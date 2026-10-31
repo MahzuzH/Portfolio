@@ -34,6 +34,61 @@ desktopQuery.addEventListener("change", (event) => {
   if (event.matches) setMenu(false);
 });
 
+/* ── Media tabs ──────────────────────────────────────────── */
+
+const mediaTabs = Array.from(
+  document.querySelectorAll<HTMLButtonElement>("[data-media-tab]"),
+);
+const mediaPanels = Array.from(
+  document.querySelectorAll<HTMLElement>("[data-media-panel]"),
+);
+
+function activateMediaTab(name: string, moveFocus = false) {
+  mediaTabs.forEach((tab) => {
+    const isActive = tab.dataset.mediaTab === name;
+    tab.setAttribute("aria-selected", String(isActive));
+    tab.tabIndex = isActive ? 0 : -1;
+    if (isActive && moveFocus) tab.focus();
+  });
+
+  mediaPanels.forEach((panel) => {
+    panel.hidden = panel.dataset.mediaPanel !== name;
+  });
+}
+
+if (mediaTabs.length > 0 && mediaPanels.length > 0) {
+  const initialTab = window.location.hash === "#letterboxd" ? "letterboxd" : "spotify";
+  activateMediaTab(initialTab);
+
+  mediaTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => {
+      activateMediaTab(tab.dataset.mediaTab ?? "");
+    });
+
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+
+      let nextIndex = index;
+      if (event.key === "ArrowRight") nextIndex = (index + 1) % mediaTabs.length;
+      if (event.key === "ArrowLeft") {
+        nextIndex = (index - 1 + mediaTabs.length) % mediaTabs.length;
+      }
+      if (event.key === "Home") nextIndex = 0;
+      if (event.key === "End") nextIndex = mediaTabs.length - 1;
+
+      const nextTab = mediaTabs[nextIndex];
+      if (nextTab) activateMediaTab(nextTab.dataset.mediaTab ?? "", true);
+    });
+  });
+
+  window.addEventListener("hashchange", () => {
+    if (window.location.hash === "#spotify" || window.location.hash === "#letterboxd") {
+      activateMediaTab(window.location.hash.slice(1));
+    }
+  });
+}
+
 /* ── Scroll progress ─────────────────────────────────────── */
 
 const progressBar = document.querySelector<HTMLElement>("[data-progress]");
