@@ -63,11 +63,7 @@ const personSchema = {
       (() => {
         const saved = localStorage.getItem("theme");
         const valid = saved === "dark" || saved === "light";
-        const theme = valid
-          ? saved
-          : window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
+        const theme = valid ? saved : "dark";
         document.documentElement.setAttribute("data-theme", theme);
       })();
     </script>
