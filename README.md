@@ -1,8 +1,19 @@
-# Portfolio
+# Mahzuz Hazman — Portfolio
 
-A single-page personal portfolio with a warm editorial layout and subtle pixel-art details. Built with Astro and Tailwind CSS, fully static.
+Personal site for **Mahzuz Hazman**, full-stack developer in Subang, Indonesia. Built with Astro 7 and Tailwind CSS 4 as a fully static single page: warm editorial layout with pixel-art details.
 
-All content lives in **`src/data/profile.ts`**: name, links, experience, education, projects, films. Section numbers, labels, titles and nav come from the `sections` object in the same file, so they cannot drift apart.
+Live: [mhzhzmn.web.id](https://mhzhzmn.web.id)
+
+## Tech stack
+
+| Layer | Choice |
+|-------|--------|
+| Framework | Astro 7 (static output, no client framework) |
+| Styling | Tailwind CSS 4 + design tokens in `global.css` |
+| Fonts | Fontsource: Pixelify Sans, Space Grotesk, JetBrains Mono (self-hosted, Latin only) |
+| Scripts | TypeScript, plain DOM (`src/scripts/`) |
+| Tests | `node:test` — no extra dependency |
+| Deploy | GitHub Pages via GitHub Actions |
 
 ## Commands
 
@@ -15,34 +26,28 @@ npm test          # unit tests (node:test, no extra dependency)
 npx astro check   # type check
 ```
 
-## Make it yours
+## Content
 
-### 1. Content
+Everything editable lives in **`src/data/profile.ts`** — this is the live personal site, not a template.
 
-Edit **`src/data/profile.ts`**. Empty strings are safe: an empty `resumeUrl` shows "Ask for my full résumé", an empty project `repo` hides the source link, an empty `companyUrl` shows the company as plain text.
+**`profile`** — name, role, location, timezone, email, phone, profile image, résumé path, Spotify playlist, Letterboxd username, top films and top games, intro, summary, quote, achievements, stats, facts, skill groups and social links.
 
-- `profile.profileImage` — put a 400×400 image in `public/` (WebP keeps it small).
-- `profile.spotifyPlaylistUrl` — any Spotify playlist or embed link.
-- `profile.letterboxdUsername` and `profile.topFilms` — film cards. Use the `-0-600-0-900` Letterboxd poster size for thumbnails.
+**`sections`** — ordered nav list with index numbers, labels, titles and lede copy. `Nav.astro` and every section read from it, so numbering can't drift.
 
-### 2. Links and SEO
+**`experience`** → **`activities`** → **`education`** / **`certifications`** → **`projects`** — each exported as a typed array. Drop in a new object; adding or removing items needs no component changes.
 
-- `astro.config.mjs` → `site` (your production domain; canonical, Open Graph and JSON-LD all read it)
-- `src/layouts/Layout.astro` → default title/description if you want different SEO copy
+**`marqueeItems`** — the scrolling skill strip.
 
-### 3. Résumé (optional)
+Project cards fall back to a generated CSS cover (`dither`, `checker`, `rings`, `grid` or `stripes`, plus `coverBg`/`coverInk`) until screenshots are supplied.
 
-Add your PDF as `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`.
+Empty strings are safe everywhere: an empty `resumeUrl` shows "Ask for my full résumé", an empty project `repo` hides the source link, and an empty `companyUrl` renders the company as plain text.
 
-### 4. Project covers
+### Assets
 
-Covers are generated with CSS, no images needed. Each project accepts:
-
-```ts
-cover: "dither" | "checker" | "rings" | "grid" | "stripes";
-coverBg: "#FFD8C9";
-coverInk: "#15140E";
-```
+- `public/profile.webp` — 400×400 portrait (WebP keeps it small)
+- `public/mahzuz-hazman-resume.pdf` — linked from the hero and contact section
+- `public/project/<project>/…webp` — project screenshots for the carousel; set them on a project via `shots` and `shotsAlt`
+- `src/assets/media/` — film posters and game covers, imported in `profile.ts` and optimized by Astro
 
 ## Design notes
 
@@ -50,21 +55,23 @@ coverInk: "#15140E";
 - **Body type:** Space Grotesk
 - **Mono labels:** JetBrains Mono
 - **Palette:** warm paper, ink, vermilion accent, pastel covers. Dark mode swaps the tokens in `global.css`.
-- **Pixel language:** square corners, 1.5px rules, hard offset shadows, dot grids, dithered covers, stepped hover transitions
+- **Pixel language:** square corners, 1.5px rules, hard offset shadows, dot grids, dithered covers, stepped hover transitions.
 - Fonts are self-hosted via Fontsource (Latin subsets only), so the site has no runtime dependency on Google Fonts.
 
 ## Structure
 
 ```text
 src/
-├─ data/profile.ts          # all editable content + section list
+├─ data/profile.ts          # all site content + section list
 ├─ layouts/Layout.astro     # head, fonts, SEO, theme init, scripts
-├─ components/              # nav, hero, sections, covers, footer
+├─ components/              # nav, hero, each section, covers, carousel, footer
 ├─ pages/index.astro        # single-page assembly
 ├─ pages/404.astro
 ├─ scripts/main.ts          # menu, tabs, scroll spy, reveal, copy, clock, theme
 ├─ scripts/spotify.ts       # playlist URL parsing (+ spotify.test.ts)
-└─ styles/global.css        # design system + responsive styles
+├─ styles/global.css        # design system + responsive styles
+└─ assets/media/            # poster and cover images
+public/                     # portrait, résumé, project shots, favicon, robots.txt
 ```
 
 ## Accessibility & performance
@@ -78,6 +85,6 @@ src/
 
 ## Deploy
 
-Deploys to GitHub Pages via `.github/workflows/deploy.yml` on every push to `main` (runs `astro check`, `npm test`, then the build). Works on any static host too: build command `npm run build`, output directory `dist`.
+Push to `main` — `.github/workflows/deploy.yml` runs `astro check`, `npm test`, then builds and publishes to GitHub Pages. Works on any static host too: build command `npm run build`, output directory `dist`.
 
-Set the final domain in `astro.config.mjs` before deploying so canonical and Open Graph URLs are correct.
+The canonical, Open Graph and JSON-LD URLs all read `site` from `astro.config.mjs` (`https://mhzhzmn.web.id`). Change it there and nowhere else.
