@@ -97,6 +97,59 @@ if (mediaTabs.length > 0 && mediaPanels.length > 0) {
   });
 }
 
+/* ── Project screenshot carousel ─────────────────────────── */
+
+document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((root) => {
+  const viewport = root.querySelector<HTMLElement>("[data-carousel-viewport]");
+  const dots = Array.from(root.querySelectorAll<HTMLElement>("[data-carousel-dot]"));
+  const count = root.querySelector<HTMLElement>("[data-carousel-count]");
+  const slides = Array.from(viewport?.querySelectorAll<HTMLElement>(".carousel__slide") ?? []);
+  if (!viewport || slides.length === 0) return;
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+  // the scroll listener fires mid-animation, so the clicked index is the truth until the scroll settles
+  let current = 0;
+  let settleTimer: number | undefined;
+
+  // scroll coordinates, not offsetLeft: offsetLeft is measured from the page, not the scroll box
+  const slideX = (slide: HTMLElement) => slide.offsetLeft - viewport.offsetLeft;
+  const indexOfNearest = () =>
+    slides.reduce(
+      (best, slide, i) =>
+        Math.abs(slideX(slide) - viewport.scrollLeft) <
+        Math.abs(slideX(slides[best]!) - viewport.scrollLeft)
+          ? i
+          : best,
+      0,
+    );
+  const show = (index: number) => {
+    current = index;
+    dots.forEach((dot, i) => (dot.dataset.active = i === index ? "true" : ""));
+    if (count) count.textContent = `${pad(index + 1)} — ${pad(slides.length)}`;
+  };
+  const goTo = (index: number) => {
+    const i = Math.min(Math.max(index, 0), slides.length - 1);
+    show(i);
+    viewport.scrollTo({ left: slideX(slides[i]!), behavior: "smooth" });
+  };
+
+  viewport.addEventListener(
+    "scroll",
+    () => {
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(() => show(indexOfNearest()), 120);
+    },
+    { passive: true },
+  );
+  root.querySelector("[data-carousel-prev]")?.addEventListener("click", () => goTo(current - 1));
+  root.querySelector("[data-carousel-next]")?.addEventListener("click", () => goTo(current + 1));
+  viewport.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    goTo(current + (event.key === "ArrowRight" ? 1 : -1));
+  });
+});
+
 /* ── Scroll progress ─────────────────────────────────────── */
 
 const progressBar = document.querySelector<HTMLElement>("[data-progress]");

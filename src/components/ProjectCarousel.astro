@@ -1,0 +1,53 @@
+---
+import type { Project } from "../data/profile";
+import ProjectCover from "./ProjectCover.astro";
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const number = String(index).padStart(2, "0");
+const shots = project.shots ?? [];
+const alt = project.shotsAlt ?? project.title;
+// slide 0 is the project's own mark, then one slide per screenshot
+const total = shots.length + 1;
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<div class="carousel" data-carousel>
+  <div class="cover__bar">
+    <span>PROJECT_{number}</span>
+    <span>{project.year}</span>
+  </div>
+
+  <div class="carousel__viewport" data-carousel-viewport tabindex="0" role="group" aria-label={`${project.title} screenshots`}>
+    <figure class="carousel__slide carousel__slide--mark">
+      <ProjectCover project={project} index={index} />
+    </figure>
+    {shots.map((src, i) => (
+      <figure class="carousel__slide">
+        <img
+          src={src}
+          alt={`${alt} — screenshot ${i + 1} of ${shots.length}`}
+          class="carousel__img"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    ))}
+  </div>
+
+  <div class="carousel__controls">
+    <button class="carousel__btn" type="button" data-carousel-prev aria-label="Previous screenshot">←</button>
+    <div class="carousel__dots" data-carousel-dots>
+      {Array.from({ length: total }, (_, i) => (
+        <span class="carousel__dot" data-carousel-dot aria-hidden="true" data-active={i === 0 ? "true" : undefined}></span>
+      ))}
+    </div>
+    <span class="carousel__count" data-carousel-count aria-hidden="true">01 — {pad(total)}</span>
+    <button class="carousel__btn" type="button" data-carousel-next aria-label="Next screenshot">→</button>
+  </div>
+</div>
+

@@ -1530,6 +1530,129 @@
     }
   }
 
+  /* Screenshot carousel: replaces the CSS cover when a project has `shots` */
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-bottom: 1.5px solid var(--color-ink);
+    background-color: var(--color-paper);
+  }
+
+  .carousel .cover__bar {
+    background-color: var(--color-paper-2);
+  }
+
+  .carousel__viewport {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    /* one slide plus a peeking edge, like an IG carousel */
+    --slide: 88%;
+  }
+
+  .carousel__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel__slide {
+    /* 38% + 88% > 100%: with snap mandatory, the browser must skip a slide instead of settling in between */
+    flex: 0 0 var(--slide);
+    box-sizing: border-box;
+    margin: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    /* every slide, mark included, is the same padded 16:10 box; the image fills it */
+    display: flex;
+    align-items: stretch;
+    aspect-ratio: 16 / 10;
+    padding: 0.6rem 0 0.6rem 0.6rem;
+  }
+
+  .carousel__slide > * {
+    display: block;
+    width: 100%;
+  }
+
+  /* the cover fills its slide and draws no border of its own; the image does */
+  .carousel__slide--mark > .cover {
+    flex: 1 1 auto;
+    width: auto;
+    min-height: 0;
+    aspect-ratio: auto;
+    border: 0;
+  }
+
+  .carousel__slide:last-child {
+    padding-right: 0.6rem;
+  }
+
+  .carousel__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: 0;
+    background-color: var(--color-paper-2);
+  }
+
+  .carousel__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    border-top: 1px solid var(--color-line);
+    padding: 0.5rem 0.7rem;
+  }
+
+  .carousel__btn {
+    display: grid;
+    width: 1.9rem;
+    height: 1.9rem;
+    place-items: center;
+    border: 1.5px solid var(--color-ink);
+    background-color: var(--color-paper-2);
+    color: var(--color-ink);
+    font-size: 0.8rem;
+    line-height: 1;
+  }
+
+  .carousel__btn:hover {
+    background-color: var(--color-accent-soft);
+  }
+
+  .carousel__dots {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .carousel__dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    background-color: var(--color-line);
+  }
+
+  .carousel__dot[data-active="true"] {
+    background-color: var(--color-accent);
+    box-shadow: 1px 1px 0 var(--color-ink);
+  }
+
+  .carousel__count {
+    margin-left: auto;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel__viewport {
+      scroll-behavior: auto;
+    }
+  }
+
   /* Project covers */
   .cover {
     --cover-bg: #ffd8c9;
@@ -1737,6 +1860,11 @@
   @media (min-width: 800px) {
     .project--featured .cover {
       min-height: 24rem;
+    }
+
+    .project--featured .carousel {
+      min-height: 100%;
+      justify-content: center;
     }
 
     .project--featured .cover__mark {

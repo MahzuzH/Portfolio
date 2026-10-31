@@ -1,6 +1,7 @@
 ---
 import { githubUrl, projects, sections } from "../data/profile";
 import ProjectCover from "./ProjectCover.astro";
+import ProjectCarousel from "./ProjectCarousel.astro";
 import SectionHeader from "./SectionHeader.astro";
 ---
 
@@ -17,7 +18,11 @@ import SectionHeader from "./SectionHeader.astro";
             data-reveal
             style={`--reveal-delay: ${index * 60}ms`}
           >
-            <ProjectCover project={project} index={index + 1} />
+            {project.shots?.length ? (
+              <ProjectCarousel project={project} index={index + 1} />
+            ) : (
+              <ProjectCover project={project} index={index + 1} />
+            )}
 
             <div class="project__body">
               <div class="project__meta">

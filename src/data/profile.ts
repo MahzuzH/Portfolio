@@ -431,6 +431,9 @@ export type Project = {
   coverBg: string;
   coverInk: string;
   badge: string;
+  /** Screenshot paths under public/. When set, the card shows a carousel instead of the CSS cover. */
+  shots?: string[];
+  shotsAlt?: string;
 };
 
 export const projects: Project[] = [
@@ -447,9 +450,15 @@ export const projects: Project[] = [
     repo: "https://github.com/MahzuzH/sefya-dental-studio",
     featured: true,
     cover: "dither",
-    coverBg: "#D6EEF2",
+    coverBg: "#FF91A4",
     coverInk: "#15140E",
     badge: "Full-stack · Live",
+    shotsAlt: "Sefya Dental Studio",
+    shots: [
+      "/project/sefya/home.webp",
+      "/project/sefya/login.webp",
+      "/project/sefya/qr-report.webp",
+    ],
   },
   {
     title: "BPJS Link Hub",
