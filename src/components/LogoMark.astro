@@ -5,16 +5,15 @@ interface Props {
 
 const { class: className } = Astro.props;
 
-// 7×8 pixel monogram "R"
+// 8×7 pixel monogram "MH"
 const rows = [
-  "1111110",
-  "1000110",
-  "1000010",
-  "1000110",
-  "1111110",
-  "1010000",
-  "1001000",
-  "1000100",
+  "10011001",
+  "10011001",
+  "11011111",
+  "10111001",
+  "10111001",
+  "10011001",
+  "10011001",
 ];
 
 const cells = rows.flatMap((row, y) =>
@@ -24,9 +23,9 @@ const cells = rows.flatMap((row, y) =>
 
 <svg
   class={className}
-  width="14"
-  height="16"
-  viewBox="0 0 7 8"
+  width="16"
+  height="14"
+  viewBox="0 0 8 7"
   fill="currentColor"
   shape-rendering="crispEdges"
   aria-hidden="true"

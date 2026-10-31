@@ -173,6 +173,33 @@ if ("IntersectionObserver" in window && !prefersReducedMotion) {
   revealElements.forEach((element) => element.classList.add("is-visible"));
 }
 
+/* ── Theme toggle ────────────────────────────────────────── */
+
+const themeToggle = document.querySelector<HTMLButtonElement>(
+  "[data-theme-toggle]",
+);
+const html = document.documentElement;
+const themeColorMeta = document.querySelector<HTMLMetaElement>(
+  "meta[name='theme-color']",
+);
+
+function setTheme(theme: "light" | "dark") {
+  html.setAttribute("data-theme", theme);
+  themeToggle?.setAttribute("aria-pressed", theme === "dark");
+  themeColorMeta?.setAttribute(
+    "content",
+    theme === "dark" ? "#15140e" : "#f3efe4",
+  );
+  localStorage.setItem("theme", theme);
+}
+
+function toggleTheme() {
+  const current = html.getAttribute("data-theme") ?? "light";
+  setTheme(current === "light" ? "dark" : "light");
+}
+
+themeToggle?.addEventListener("click", toggleTheme);
+
 /* ── Copy email ──────────────────────────────────────────── */
 
 const copyButtons = Array.from(

@@ -17,6 +17,50 @@
   --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
 }
 
+[data-theme="dark"] {
+  --color-paper: #15140e;
+  --color-paper-2: #1f1d19;
+  --color-ink: #f3efe4;
+  --color-ink-soft: #d8d2c0;
+  --color-muted: #a8a294;
+  --color-line: #3a382d;
+  --color-accent: #ff6b4a;
+  --color-accent-ink: #15140e;
+  --color-accent-soft: #4a1a0f;
+  --color-ok: #5f9d5a;
+  color-scheme: dark;
+
+  /* ── Kontras teks gelap di dark mode ──
+     --color-paper jadi gelap di dark mode, jadi teks yang memakainya jadi tidak terbaca.
+     Ganti dengan --color-ink (cahaya di dark mode) untuk teks samar. */
+  .eyebrow--light {
+    color: color-mix(in srgb, var(--color-ink) 62%, transparent);
+  }
+
+  .eyebrow--light::before {
+    box-shadow: 2px 2px 0 color-mix(in srgb, var(--color-ink) 25%, transparent);
+  }
+
+  .contact__copy {
+    color: color-mix(in srgb, var(--color-ink) 66%, transparent);
+  }
+
+  .contact__meta {
+    color: color-mix(in srgb, var(--color-ink) 45%, transparent);
+  }
+
+  .btn--light {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+    box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-ink) 30%, transparent);
+  }
+
+  .btn--light:hover {
+    background-color: color-mix(in srgb, var(--color-ink) 7%, transparent);
+    box-shadow: 6px 6px 0 color-mix(in srgb, var(--color-ink) 30%, transparent);
+  }
+}
+
 /* ── Base ─────────────────────────────────────────────────── */
 
 @layer base {
@@ -461,6 +505,37 @@
 
   .nav-toggle[aria-expanded="true"] span:nth-child(3) {
     transform: translateY(-5px) rotate(-45deg);
+  }
+
+  /* Theme toggle button */
+  .theme-toggle {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1.5px solid var(--color-ink);
+    background-color: var(--color-paper-2);
+    color: var(--color-ink);
+    box-shadow: 3px 3px 0 var(--color-ink);
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease;
+  }
+
+  .theme-toggle:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-ink);
+  }
+
+  .theme-toggle__icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    display: none;
+  }
+
+  [data-theme="light"] .theme-toggle__icon--moon,
+  [data-theme="dark"] .theme-toggle__icon--sun {
+    display: block;
   }
 
   .mobile-menu {
