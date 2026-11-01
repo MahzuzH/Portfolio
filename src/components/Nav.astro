@@ -2,8 +2,6 @@
 import { profile, sections } from "../data/profile";
 import LogoMark from "./LogoMark.astro";
 
-const firstName = profile.name.split(" ")[0] ?? profile.name;
-
 const links = Object.entries(sections).map(([id, section]) => ({
   href: `#${id}`,
   label: section.label,
@@ -22,9 +20,6 @@ const totalLinks = String(links.length).padStart(2, "0");
     <a href="#top" class="brand" aria-label={`${profile.name} — back to top`}>
       <span class="brand__mark">
         <LogoMark />
-      </span>
-      <span class="brand__name">
-        {firstName}<span style="color: var(--color-accent)">.</span>
       </span>
     </a>
 

@@ -382,14 +382,23 @@
   }
 
   .brand__mark {
-    display: grid;
-    width: 1.8rem;
-    height: 1.8rem;
+    display: inline-flex;
+    align-items: center;
     flex: none;
-    place-items: center;
     border: 1.5px solid var(--color-ink);
     background-color: var(--color-paper-2);
     box-shadow: 2px 2px 0 var(--color-accent);
+    border-radius: 0.4rem;
+    padding: 0 0.75rem;
+  }
+
+  .logo__text {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-ink);
+    line-height: 1;
   }
 
   .brand__name {
