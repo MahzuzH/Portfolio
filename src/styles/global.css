@@ -140,6 +140,11 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+
+    .marquee__track {
+      animation-duration: 32s !important;
+      animation-iteration-count: infinite !important;
+    }
   }
 }
 
@@ -853,7 +858,7 @@
   .marquee__track {
     display: flex;
     width: max-content;
-    animation: marquee 34s linear infinite;
+    animation: marquee 16s linear infinite;
   }
 
   .marquee:hover .marquee__track {
@@ -2602,7 +2607,6 @@
       transform: none;
     }
 
-    .marquee__track,
     .hero__spark--a,
     .status-dot {
       animation: none !important;
