@@ -8,7 +8,6 @@ interface Props {
 const { project } = Astro.props;
 const variant = project.thumb;
 const hasInnerLine = variant === "sefya" || variant === "bpjs";
-const tagLabel = variant === "skm" ? "Source" : "Live";
 
 const qrPattern = [
   "1111111",
@@ -109,6 +108,4 @@ const qrPattern = [
       </div>
     )}
   </div>
-
-  <span class="thumb__tag">{tagLabel}</span>
 </div>

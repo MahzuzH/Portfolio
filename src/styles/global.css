@@ -867,8 +867,9 @@
   .project__media {
     display: block;
     height: 22.5rem;
-    padding: 16px;
-    background-color: var(--color-pink);
+    padding: 0;
+    /* one accent per project: the frame fills the whole media area */
+    background-color: var(--thumb-bg, var(--color-pink));
     container-type: inline-size;
   }
 
@@ -878,13 +879,12 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border: 3px solid #000;
     background-color: var(--thumb-bg);
     color: var(--thumb-text);
   }
 
   .thumb--line {
-    box-shadow: inset 0 0 0 1px #fff;
+    box-shadow: inset 0 0 0 2px #fff;
   }
 
   .thumb--sefya {
@@ -893,8 +893,6 @@
     --thumb-muted: #00000099;
     --thumb-accent: #6c4bff;
     --thumb-accent-text: #fff;
-    --thumb-tag-bg: #c4f04d;
-    --thumb-tag-text: #000;
   }
 
   .thumb--bpjs {
@@ -903,8 +901,6 @@
     --thumb-muted: #ffffffb3;
     --thumb-accent: #c4f04d;
     --thumb-accent-text: #000;
-    --thumb-tag-bg: #ff7f9f;
-    --thumb-tag-text: #000;
   }
 
   .thumb--skm {
@@ -913,8 +909,6 @@
     --thumb-muted: #00000099;
     --thumb-accent: #ff7f9f;
     --thumb-accent-text: #000;
-    --thumb-tag-bg: #6c4bff;
-    --thumb-tag-text: #fff;
   }
 
   .thumb__plus {
@@ -1005,6 +999,7 @@
     flex: 1;
     min-height: 0;
     padding: clamp(8px, 1.7cqw, 14px);
+    background-color: #fff;
   }
 
   .thumb__left {
@@ -1012,31 +1007,30 @@
     width: 45%;
     flex-direction: column;
     align-items: flex-start;
-    gap: clamp(4px, 0.9cqw, 9px);
+    justify-content: center;
+    gap: clamp(8px, 1.9cqw, 15px);
   }
 
   .thumb__meta {
-    color: var(--thumb-text);
+    color: #000;
     font-family: var(--font-mono);
     font-size: clamp(8px, 1.5cqw, 12px);
     font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 1.2;
-    text-transform: uppercase;
   }
 
   .thumb__title {
     display: flex;
     flex-direction: column;
-    color: var(--thumb-text);
+    color: #000;
     font-family: var(--font-display);
     font-size: clamp(15px, 3cqw, 22px);
     line-height: 0.9;
-    text-transform: uppercase;
   }
 
   .thumb__tech {
-    color: var(--thumb-muted);
+    color: #777777;
     font-family: var(--font-mono);
     font-size: clamp(8px, 1.45cqw, 11px);
     line-height: 1.4;
@@ -1055,7 +1049,6 @@
     font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 1;
-    text-transform: uppercase;
     box-shadow: 3px 3px 0 #000;
   }
 
@@ -1067,12 +1060,19 @@
     z-index: 3;
     display: flex;
     width: 38%;
-    overflow: hidden;
+    overflow: visible;
     flex-direction: column;
     border: 3px solid #000;
     background-color: #fff;
     color: #000;
     box-shadow: 6px 6px 0 #000;
+  }
+
+  /* BPJS: the three link rows decide the height, so the panel grows downward */
+  .thumb--bpjs .thumb__panel {
+    top: 10%;
+    bottom: auto;
+    height: auto;
   }
 
   .thumb__panel-head {
@@ -1111,21 +1111,26 @@
   }
 
   .thumb__panel-body--stack {
+    flex: none;
     flex-direction: column;
+    gap: clamp(6px, 1.2cqw, 11px);
   }
 
   .thumb__panel-btn {
+    display: flex;
     flex: none;
-    margin: 0 clamp(6px, 1.2cqw, 12px) clamp(6px, 1.2cqw, 12px);
-    border: 2px solid #000;
-    padding: clamp(3px, 0.7cqw, 6px) clamp(4px, 1cqw, 8px);
+    min-height: clamp(24px, 3.4cqw, 32px);
+    align-items: center;
+    justify-content: center;
+    margin: clamp(6px, 1.2cqw, 12px) clamp(6px, 1.2cqw, 12px) clamp(6px, 1.2cqw, 12px);
+    border: 3px solid #000;
+    padding: clamp(3px, 0.6cqw, 5px) clamp(4px, 1cqw, 8px);
     font-family: var(--font-mono);
     font-size: clamp(7px, 1.1cqw, 10px);
     font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 1.1;
     text-align: center;
-    text-transform: uppercase;
   }
 
   .thumb__panel-btn--violet {
@@ -1274,24 +1279,6 @@
     background-color: #6c4bff;
   }
 
-  .thumb__tag {
-    position: absolute;
-    right: 20px;
-    bottom: 24px;
-    z-index: 4;
-    border: 3px solid #000;
-    background-color: var(--thumb-tag-bg);
-    padding: clamp(3px, 0.6cqw, 5px) clamp(6px, 1.2cqw, 10px);
-    color: var(--thumb-tag-text);
-    font-family: var(--font-mono);
-    font-size: clamp(10px, 1.6cqw, 14px);
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    line-height: 1;
-    text-transform: uppercase;
-    box-shadow: 3px 3px 0 #000;
-  }
-
   .project__body {
     display: flex;
     flex: 1;
@@ -1400,7 +1387,7 @@
 
     .project__media {
       height: auto;
-      padding: 10px;
+      padding: 0;
     }
 
     .thumb {
@@ -1443,11 +1430,6 @@
 
     .thumb__panel {
       display: none;
-    }
-
-    .thumb__tag {
-      right: 10px;
-      bottom: 12px;
     }
   }
 
@@ -1603,8 +1585,21 @@
 
   .timeline__list {
     display: grid;
-    gap: 20px;
+    gap: 16px;
     margin-bottom: 20px;
+  }
+
+  .timeline__now {
+    display: inline-block;
+    margin-left: 6px;
+    border: 2px solid var(--color-border);
+    background-color: var(--color-lime);
+    padding: 1px 5px;
+    color: #000;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    vertical-align: middle;
   }
 
   .timeline__item {
