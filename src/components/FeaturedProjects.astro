@@ -1,0 +1,65 @@
+---
+import { githubUrl, projects } from "../data/profile";
+import ProjectThumb from "./ProjectThumb.astro";
+---
+
+<div id="projects" class="panel panel--white" data-projects>
+  <h2 class="block-title" data-reveal>Featured projects</h2>
+
+  <div class="projects__bar" data-reveal>
+    <a class="projects__all" href={githubUrl} target="_blank" rel="noopener noreferrer">
+      View all projects <span aria-hidden="true">→</span>
+    </a>
+    <div class="projects__arrows">
+      <button class="arrow-btn" type="button" data-project-prev aria-label="Previous project">‹</button>
+      <button class="arrow-btn" type="button" data-project-next aria-label="Next project">›</button>
+    </div>
+  </div>
+
+  <div class="project-slides">
+    {projects.map((project, index) => {
+      const detailHref = project.href !== "#" ? project.href : project.repo;
+      return (
+        <article class="project-slide" data-project-slide data-active={index === 0 ? "true" : "false"}>
+          <div class="project__media">
+            <ProjectThumb project={project} />
+          </div>
+
+          <div class="project__body">
+            <h3 class="project__title">{project.title}</h3>
+            <p class="project__desc">{project.tagline}</p>
+
+            <div class="project__tags">
+              {project.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+
+            <a
+              class="project__cta"
+              href={detailHref}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View details <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  <div class="project__dots" role="tablist" aria-label="Select project">
+    {projects.map((project, index) => (
+      <button
+        class="dot"
+        type="button"
+        role="tab"
+        data-project-dot
+        data-active={index === 0 ? "true" : "false"}
+        aria-selected={index === 0 ? "true" : "false"}
+        aria-label={`Show ${project.title}`}
+      ></button>
+    ))}
+  </div>
+</div>

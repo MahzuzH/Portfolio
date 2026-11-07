@@ -6,33 +6,6 @@
  * ─────────────────────────────────────────────────────────────
  */
 
-import type { ImageMetadata } from "astro";
-import goodWillHuntingPoster from "../assets/media/good-will-hunting-poster.jpg";
-import eternalSunshinePoster from "../assets/media/eternal-sunshine-poster.jpg";
-import dunePartTwoPoster from "../assets/media/dune-part-two-poster.jpg";
-import whiplashPoster from "../assets/media/whiplash-poster.jpg";
-import stardewValleyCover from "../assets/media/stardew-valley-cover.jpg";
-import hollowKnightCover from "../assets/media/hollow-knight-cover.jpg";
-import octopathTravelerCover from "../assets/media/octopath-traveler-cover.jpg";
-import hadesCover from "../assets/media/hades-cover.jpg";
-
-export type TopFilm = {
-  title: string;
-  year: string;
-  rating?: string;
-  poster?: ImageMetadata;
-  link: string;
-};
-
-export type TopGame = {
-  title: string;
-  year: string;
-  platform: string;
-  hours: string;
-  cover: ImageMetadata;
-  link: string;
-};
-
 export const profile = {
   name: "Mahzuz Hazman",
   role: "Software Engineer",
@@ -43,74 +16,7 @@ export const profile = {
   phone: "+6281322670257",
   profileImage: "/profile.webp",
   profileImageAlt: "Portrait of Mahzuz Hazman",
-  spotifyPlaylistUrl: "https://open.spotify.com/playlist/2vYTGA9oKjuxxxzBxCgOHT?si=8f5298a34e6e45e5",
   letterboxdUsername: "ncjuicer",
-
-  topFilms: [
-    {
-      title: "Good Will Hunting",
-      year: "1997",
-      rating: "★★★★★",
-      poster: goodWillHuntingPoster,
-      link: "https://letterboxd.com/film/good-will-hunting/",
-    },
-    {
-      title: "Eternal Sunshine of the Spotless Mind",
-      year: "2004",
-      rating: "★★★★★",
-      poster: eternalSunshinePoster,
-      link: "https://letterboxd.com/film/eternal-sunshine-of-the-spotless-mind/",
-    },
-    {
-      title: "Dune: Part Two",
-      year: "2024",
-      rating: "★★★★★",
-      poster: dunePartTwoPoster,
-      link: "https://letterboxd.com/film/dune-part-two/",
-    },
-    {
-      title: "Whiplash",
-      year: "2014",
-      rating: "★★★★★",
-      poster: whiplashPoster,
-      link: "https://letterboxd.com/film/whiplash-2014/",
-    },
-  ] satisfies TopFilm[],
-
-  topGames: [
-    {
-      title: "Stardew Valley",
-      year: "2016",
-      platform: "PC",
-      hours: "76.4h",
-      cover: stardewValleyCover,
-      link: "https://store.steampowered.com/app/413150/Stardew_Valley/",
-    },
-    {
-      title: "Hollow Knight",
-      year: "2017",
-      platform: "PC",
-      hours: "24.5h",
-      cover: hollowKnightCover,
-      link: "https://store.steampowered.com/app/367520/Hollow_Knight/",
-    },
-    {
-      title: "Octopath Traveler",
-      year: "2018",
-      platform: "PC",
-      hours: "13.2h",
-      cover: octopathTravelerCover,
-      link: "https://store.steampowered.com/app/921570/OCTOPATH_TRAVELER/",
-    },
-    {
-      title: "Hades",
-      year: "2020",
-      platform: "PC",
-      hours: "12.4h",
-      cover: hadesCover,
-      link: "https://store.steampowered.com/app/1145360/Hades/",
-    },
-  ] satisfies TopGame[],
 
   availability: "Open to new work",
   availabilityNote: "Available for freelance and full-time opportunities.",
@@ -441,6 +347,8 @@ export type Project = {
   coverBg: string;
   coverInk: string;
   badge: string;
+  thumb: "sefya" | "bpjs" | "skm";
+  thumbLines: string[];
   /** Screenshot paths under public/. When set, the card shows a carousel instead of the CSS cover. */
   shots?: string[];
   shotsAlt?: string;
@@ -463,6 +371,8 @@ export const projects: Project[] = [
     coverBg: "#FF91A4",
     coverInk: "#15140E",
     badge: "Full-stack · Live",
+    thumb: "sefya",
+    thumbLines: ["Sefya", "Dental Studio"],
     shotsAlt: "Sefya Dental Studio",
     shots: [
       "/project/sefya/home.webp",
@@ -486,6 +396,8 @@ export const projects: Project[] = [
     coverBg: "#E6F0D9",
     coverInk: "#15140E",
     badge: "Web app · Live",
+    thumb: "bpjs",
+    thumbLines: ["BPJS", "Link Hub"],
   },
   {
     title: "SKM Puskesmas Pagaden",
@@ -503,5 +415,7 @@ export const projects: Project[] = [
     coverBg: "#F6EBC8",
     coverInk: "#15140E",
     badge: "Coursework · Laravel",
+    thumb: "skm",
+    thumbLines: ["SKM", "Puskesmas"],
   },
 ];

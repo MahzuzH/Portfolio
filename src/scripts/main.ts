@@ -9,7 +9,6 @@ function setMenu(open: boolean, restoreFocus = false) {
 
   menuToggle.setAttribute("aria-expanded", String(open));
   mobileMenu.hidden = !open;
-  document.body.classList.toggle("menu-open", open);
 
   if (menuLabel) menuLabel.textContent = open ? "Close menu" : "Open menu";
   if (!open && restoreFocus) menuToggle.focus();
@@ -29,193 +28,50 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-const desktopQuery = window.matchMedia("(min-width: 880px)");
+const desktopQuery = window.matchMedia("(min-width: 980px)");
 desktopQuery.addEventListener("change", (event) => {
   if (event.matches) setMenu(false);
 });
 
-/* ── Media tabs ──────────────────────────────────────────── */
+/* ── Project carousel ─────────────────────────────────────── */
 
-const mediaTabs = Array.from(
-  document.querySelectorAll<HTMLButtonElement>("[data-media-tab]"),
-);
-const mediaPanels = Array.from(
-  document.querySelectorAll<HTMLElement>("[data-media-panel]"),
-);
+document.querySelectorAll<HTMLElement>("[data-projects]").forEach((root) => {
+  const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-project-slide]"));
+  const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-project-dot]"));
+  if (slides.length === 0) return;
 
-function activateMediaTab(name: string, moveFocus = false) {
-  if (!mediaTabs.some((tab) => tab.dataset.mediaTab === name)) name = "spotify";
-  mediaTabs.forEach((tab) => {
-    const isActive = tab.dataset.mediaTab === name;
-    tab.setAttribute("aria-selected", String(isActive));
-    tab.tabIndex = isActive ? 0 : -1;
-    if (isActive && moveFocus) tab.focus();
-  });
-
-  mediaPanels.forEach((panel) => {
-    panel.hidden = panel.dataset.mediaPanel !== name;
-  });
-}
-
-export { activateMediaTab };
-
-if (mediaTabs.length > 0 && mediaPanels.length > 0) {
-  const hash = window.location.hash.slice(1);
-  const knownTab = ["spotify", "letterboxd", "games"].includes(hash);
-  activateMediaTab(knownTab ? hash : "spotify");
-  // The browser jumped to the tab's hash before the panel was shown, so scroll again once heights are final.
-  if (knownTab) document.getElementById("media")?.scrollIntoView();
-
-  mediaTabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => {
-      activateMediaTab(tab.dataset.mediaTab ?? "");
-    });
-
-    tab.addEventListener("keydown", (event) => {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-      event.preventDefault();
-
-      let nextIndex = index;
-      if (event.key === "ArrowRight") nextIndex = (index + 1) % mediaTabs.length;
-      if (event.key === "ArrowLeft") {
-        nextIndex = (index - 1 + mediaTabs.length) % mediaTabs.length;
-      }
-      if (event.key === "Home") nextIndex = 0;
-      if (event.key === "End") nextIndex = mediaTabs.length - 1;
-
-      const nextTab = mediaTabs[nextIndex];
-      if (nextTab) activateMediaTab(nextTab.dataset.mediaTab ?? "", true);
-    });
-  });
-
-  window.addEventListener("hashchange", () => {
-    const hash = window.location.hash.slice(1);
-    if (hash === "spotify" || hash === "letterboxd" || hash === "games") {
-      activateMediaTab(hash);
-      document.getElementById("media")?.scrollIntoView();
-    }
-  });
-}
-
-/* ── Project screenshot carousel ─────────────────────────── */
-
-document.querySelectorAll<HTMLElement>("[data-carousel]").forEach((root) => {
-  const viewport = root.querySelector<HTMLElement>("[data-carousel-viewport]");
-  const dots = Array.from(root.querySelectorAll<HTMLElement>("[data-carousel-dot]"));
-  const count = root.querySelector<HTMLElement>("[data-carousel-count]");
-  const slides = Array.from(viewport?.querySelectorAll<HTMLElement>(".carousel__slide") ?? []);
-  if (!viewport || slides.length === 0) return;
-
-  const pad = (n: number) => String(n).padStart(2, "0");
-  // the scroll listener fires mid-animation, so the clicked index is the truth until the scroll settles
   let current = 0;
-  let settleTimer: number | undefined;
 
-  // scroll coordinates, not offsetLeft: offsetLeft is measured from the page, not the scroll box
-  const slideX = (slide: HTMLElement) => slide.offsetLeft - viewport.offsetLeft;
-  const indexOfNearest = () =>
-    slides.reduce(
-      (best, slide, i) =>
-        Math.abs(slideX(slide) - viewport.scrollLeft) <
-        Math.abs(slideX(slides[best]!) - viewport.scrollLeft)
-          ? i
-          : best,
-      0,
-    );
   const show = (index: number) => {
-    current = index;
-    dots.forEach((dot, i) => (dot.dataset.active = i === index ? "true" : ""));
-    if (count) count.textContent = `${pad(index + 1)} — ${pad(slides.length)}`;
-  };
-  const goTo = (index: number) => {
-    const i = Math.min(Math.max(index, 0), slides.length - 1);
-    show(i);
-    viewport.scrollTo({ left: slideX(slides[i]!), behavior: "smooth" });
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.dataset.active = String(i === current);
+    });
+    dots.forEach((dot, i) => {
+      dot.dataset.active = String(i === current);
+      dot.setAttribute("aria-selected", String(i === current));
+      dot.tabIndex = i === current ? 0 : -1;
+    });
   };
 
-  viewport.addEventListener(
-    "scroll",
-    () => {
-      window.clearTimeout(settleTimer);
-      settleTimer = window.setTimeout(() => show(indexOfNearest()), 120);
-    },
-    { passive: true },
-  );
-  root.querySelector("[data-carousel-prev]")?.addEventListener("click", () => goTo(current - 1));
-  root.querySelector("[data-carousel-next]")?.addEventListener("click", () => goTo(current + 1));
-  viewport.addEventListener("keydown", (event) => {
+  root.querySelector("[data-project-prev]")?.addEventListener("click", () => show(current - 1));
+  root.querySelector("[data-project-next]")?.addEventListener("click", () => show(current + 1));
+  dots.forEach((dot, i) => dot.addEventListener("click", () => show(i)));
+
+  root.addEventListener("keydown", (event) => {
     if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
     event.preventDefault();
-    goTo(current + (event.key === "ArrowRight" ? 1 : -1));
+    show(current + (event.key === "ArrowRight" ? 1 : -1));
   });
+
+  show(0);
 });
-
-/* ── Scroll progress ─────────────────────────────────────── */
-
-const progressBar = document.querySelector<HTMLElement>("[data-progress]");
-let progressFrame = 0;
-
-function updateProgress() {
-  progressFrame = 0;
-  if (!progressBar) return;
-
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = maxScroll > 0 ? Math.min(window.scrollY / maxScroll, 1) : 0;
-  progressBar.style.transform = `scaleX(${progress})`;
-}
-
-function requestProgressUpdate() {
-  if (!progressFrame) {
-    progressFrame = window.requestAnimationFrame(updateProgress);
-  }
-}
-
-window.addEventListener("scroll", requestProgressUpdate, { passive: true });
-window.addEventListener("resize", requestProgressUpdate);
-updateProgress();
-
-/* ── Scroll spy ──────────────────────────────────────────── */
-
-const navLinks = Array.from(
-  document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"),
-);
-
-const sections = navLinks
-  .map((link) => document.getElementById(link.dataset.navLink ?? ""))
-  .filter((section): section is HTMLElement => Boolean(section));
-
-const setActiveSection = (id: string) => {
-  navLinks.forEach((link) => {
-    if (link.dataset.navLink === id) {
-      link.dataset.active = "true";
-    } else {
-      delete link.dataset.active;
-    }
-  });
-};
-
-if ("IntersectionObserver" in window && sections.length > 0) {
-  const spy = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) setActiveSection(entry.target.id);
-      });
-    },
-    { rootMargin: "-38% 0px -52% 0px", threshold: 0 },
-  );
-
-  sections.forEach((section) => spy.observe(section));
-}
 
 /* ── Reveal on scroll ────────────────────────────────────── */
 
-const revealElements = Array.from(
-  document.querySelectorAll<HTMLElement>("[data-reveal]"),
-);
+const revealElements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
 
-const prefersReducedMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)",
-).matches;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if ("IntersectionObserver" in window && !prefersReducedMotion) {
   const revealObserver = new IntersectionObserver(
@@ -234,111 +90,23 @@ if ("IntersectionObserver" in window && !prefersReducedMotion) {
   revealElements.forEach((element) => element.classList.add("is-visible"));
 }
 
-/* ── Theme toggle ────────────────────────────────────────── */
+/* ── Word reveal ─────────────────────────────────────────── */
 
-const themeToggle = document.querySelector<HTMLButtonElement>(
-  "[data-theme-toggle]",
-);
-const html = document.documentElement;
-const themeColorMeta = document.querySelector<HTMLMetaElement>(
-  "meta[name='theme-color']",
-);
+const wordElements = Array.from(document.querySelectorAll<HTMLElement>(".reveal-words .word"));
 
-/* Spotify renders its own colours, so the embed URL carries the theme (1 = light, 0 = dark). */
-function syncEmbedTheme(theme: "light" | "dark") {
-  const embed = document.querySelector<HTMLElement>("[data-spotify-embed]");
-  const frame = embed?.querySelector<HTMLIFrameElement>("iframe");
-  const src = embed?.dataset.embedSrc;
-  if (!frame || !src) return;
-  const next = src.replace("theme=1", `theme=${theme === "dark" ? 0 : 1}`);
-  if (frame.src !== next) frame.src = next;
-}
-
-syncEmbedTheme((html.getAttribute("data-theme") as "light" | "dark" | null) ?? "light");
-
-function setTheme(theme: "light" | "dark") {
-  html.setAttribute("data-theme", theme);
-  syncEmbedTheme(theme);
-  themeToggle?.setAttribute("aria-pressed", String(theme === "dark"));
-  themeColorMeta?.setAttribute(
-    "content",
-    theme === "dark" ? "#15140e" : "#f3efe4",
+if ("IntersectionObserver" in window && wordElements.length > 0 && !prefersReducedMotion) {
+  const wordObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-lit");
+        observer.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -35% 0px", threshold: 0 },
   );
-  localStorage.setItem("theme", theme);
-}
 
-function toggleTheme() {
-  const current = html.getAttribute("data-theme") ?? "light";
-  setTheme(current === "light" ? "dark" : "light");
-}
-
-themeToggle?.addEventListener("click", toggleTheme);
-
-/* ── Copy email ──────────────────────────────────────────── */
-
-const copyButtons = Array.from(
-  document.querySelectorAll<HTMLButtonElement>("[data-copy]"),
-);
-
-copyButtons.forEach((button) => {
-  const copyText = button.querySelector<HTMLElement>("[data-copy-text]");
-  const status = document.querySelector<HTMLElement>("[data-copy-status]");
-  const originalLabel = copyText?.textContent ?? "Copy email";
-  let resetTimer: number | undefined;
-
-  button.addEventListener("click", async () => {
-    const value = button.dataset.copy ?? "";
-
-    try {
-      await navigator.clipboard.writeText(value);
-    } catch {
-      const helper = document.createElement("textarea");
-      helper.value = value;
-      helper.style.position = "fixed";
-      helper.style.opacity = "0";
-      document.body.appendChild(helper);
-      helper.select();
-      document.execCommand("copy");
-      helper.remove();
-    }
-
-    button.classList.add("is-copied");
-    if (copyText) copyText.textContent = "Copied!";
-    if (status) status.textContent = `${value} copied to clipboard`;
-
-    window.clearTimeout(resetTimer);
-    resetTimer = window.setTimeout(() => {
-      button.classList.remove("is-copied");
-      if (copyText) copyText.textContent = originalLabel;
-      if (status) status.textContent = "";
-    }, 2200);
-  });
-});
-
-/* ── Local time ──────────────────────────────────────────── */
-
-const timeElements = Array.from(
-  document.querySelectorAll<HTMLElement>("[data-local-time]"),
-);
-
-function updateLocalTimes() {
-  timeElements.forEach((element) => {
-    const timezone = element.dataset.timezone || "Asia/Jakarta";
-
-    try {
-      element.textContent = new Intl.DateTimeFormat("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-        timeZone: timezone,
-      }).format(new Date());
-    } catch {
-      element.textContent = "—";
-    }
-  });
-}
-
-if (timeElements.length > 0) {
-  updateLocalTimes();
-  window.setInterval(updateLocalTimes, 30_000);
+  wordElements.forEach((word) => wordObserver.observe(word));
+} else {
+  wordElements.forEach((word) => word.classList.add("is-lit"));
 }

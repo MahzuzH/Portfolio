@@ -2,27 +2,25 @@
 import Layout from "../layouts/Layout.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
-import Marquee from "../components/Marquee.astro";
-import About from "../components/About.astro";
-import Experience from "../components/Experience.astro";
-import Education from "../components/Education.astro";
-import Projects from "../components/Projects.astro";
-import Media from "../components/Media.astro";
-import Contact from "../components/Contact.astro";
+import SkillsStrip from "../components/SkillsStrip.astro";
+import FeaturedProjects from "../components/FeaturedProjects.astro";
+import Certifications from "../components/Certifications.astro";
+import ExperienceBento from "../components/ExperienceBento.astro";
 import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
-  <Nav />
-  <main id="main">
-    <Hero />
-    <Marquee />
-    <About />
-    <Experience />
-    <Education />
-    <Projects />
-    <Media />
-    <Contact />
-  </main>
-  <Footer />
+  <div class="page-shell">
+    <Nav />
+    <main id="main">
+      <Hero />
+      <SkillsStrip />
+      <div class="row-two">
+        <FeaturedProjects />
+        <Certifications />
+      </div>
+      <ExperienceBento />
+    </main>
+    <Footer />
+  </div>
 </Layout>

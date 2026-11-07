@@ -1,0 +1,59 @@
+---
+import { experience, profile } from "../data/profile";
+
+const recent = experience.slice(0, 3);
+const ctaWords = "Let's build something amazing together.".split(" ");
+---
+
+<div class="row-three">
+  <div class="experience-label">
+    <p class="experience-label__title">Experience <span aria-hidden="true">→</span></p>
+  </div>
+
+  <div id="experience" class="timeline">
+    <div class="timeline__list">
+      {recent.map((job, index) => (
+        <div class="timeline__item" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+          <p class="timeline__role">{job.role} · {job.company}</p>
+          <p class="timeline__meta">{job.period} · {job.location}</p>
+          <p class="timeline__desc">{job.summary}</p>
+        </div>
+      ))}
+    </div>
+
+    <a class="btn" href={profile.resumeUrl} download>
+      View full resume <span aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-block__grid" aria-hidden="true"></div>
+
+    <div class="cta-block__content" data-reveal>
+      <h2 class="cta-block__title reveal-words" data-words>
+        {ctaWords.map((word, index) => (
+          <span class="word">{word}{index < ctaWords.length - 1 ? " " : ""}</span>
+        ))}
+      </h2>
+
+      <a class="btn" href={`mailto:${profile.email}`}>
+        Get in touch <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <svg
+      class="cta-block__sticker"
+      viewBox="0 0 100 100"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M50 2 58 30 84 12 70 38 98 50 70 62 84 88 58 70 50 98 42 70 16 88 30 62 2 50 30 38 16 12 42 30Z"
+        fill="#FF7F9F"
+        stroke="#000"
+        stroke-width="4"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+</div>

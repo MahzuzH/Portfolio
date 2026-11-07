@@ -1,0 +1,31 @@
+---
+import { certifications, profile } from "../data/profile";
+
+const linkedin = profile.socials.find((social) => social.label === "LinkedIn")?.href ?? "#";
+const latest = certifications.slice(0, 3);
+---
+
+<div id="certifications" class="panel panel--lime">
+  <div class="panel__head" data-reveal>
+    <h2 class="block-title">Certifications</h2>
+  </div>
+
+  <div class="certs">
+    {latest.map((cert) => (
+      <a
+        class="cert-card"
+        href={cert.url}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="cert-card__name">{cert.name}</span>
+        <span class="cert-card__meta">{cert.issuer} · {cert.year}</span>
+      </a>
+    ))}
+  </div>
+
+  <a class="certs__all" href={linkedin} target="_blank" rel="noopener noreferrer">
+    <span class="certs__all-label">View all<br />Certifications</span>
+    <span class="certs__all-arrow" aria-hidden="true">→</span>
+  </a>
+</div>

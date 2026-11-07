@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { profile } from "../data/profile";
+---
+
+<Layout
+  title="Blog — Mahzuz Hazman"
+  description="Notes on web apps, databases and shipping internal tools. First posts are on the way."
+>
+  <div class="page-shell">
+    <header class="site-nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-brand" aria-label={`${profile.name}, back to home`}>
+          &lt;/&gt; Mahzuz Dev
+        </a>
+        <a href="/" class="nav-contact">
+          Back home <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main" class="not-found">
+      <div class="not-found__box">
+        <p class="label">Blog</p>
+        <h1 class="not-found__title">Writing coming soon.</h1>
+        <p class="not-found__text">
+          Notes on web apps, databases and shipping internal tools. The first
+          posts are on the way.
+        </p>
+        <div class="not-found__actions">
+          <a class="btn btn--lime" href="/">Back home <span aria-hidden="true">←</span></a>
+          <a class="btn" href={`mailto:${profile.email}`}>
+            Get in touch <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
