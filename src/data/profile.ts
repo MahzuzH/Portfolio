@@ -27,8 +27,8 @@ export const profile = {
     "I'm a software developer from Subang. I build web applications with PHP, JavaScript and MySQL, and I like turning messy manual processes into tools that are simple to use.",
 
   summary: [
-    "I'm an enthusiastic full stack developer with hands-on experience across several different fields: educational technology, internal corporate applications, and the health sector. I'm an informatics graduate from ITENAS Bandung, and I've worked on everything from a company ERP and its production QR tracking and HR payroll modules, to an internal link management platform built during Kerja Praktik at BPJS Kesehatan, to two years teaching multimedia and object-oriented programming in campus labs.",
-    "What I enjoy most is adapting to whatever the system actually needs. Some work is all database schemas and back-end APIs with Laravel and MySQL; other work is a clean, readable interface in React and Tailwind. I'm very eager to keep learning and to stay up to date with new technologies, and I'd rather understand a problem properly than reach for the newest tool.",
+    "I'm a full stack developer with hands-on experience in educational technology, internal corporate applications, and the health sector. I graduated from ITENAS Bandung with a degree in informatics. I've built a company ERP with production QR tracking and HR payroll modules, an internal link management platform during Kerja Praktik at BPJS Kesehatan, and taught multimedia and object-oriented programming in campus labs.",
+    "What I enjoy most is adapting to whatever the system actually needs. Some work is all database schemas and back-end APIs with Laravel and MySQL; other work is a clean, readable interface in React and Tailwind. I'm eager to keep learning and to stay up to date with new technologies, and I'd rather understand a problem properly than reach for the newest tool.",
   ],
 
   quote: "Good interfaces feel obvious. Getting there is anything but.",
@@ -91,13 +91,13 @@ export const profile = {
   ],
 };
 
-/** Ordered nav + section numbering. `Nav.astro` and each section read this, so numbers cannot drift. */
+/** Ordered section copy and numbering. Current components use their own labels. */
 export const sections = {
   about: {
     index: "01",
     label: "About",
     title: "I build web tools that replace manual work.",
-    lede: "Internal apps for factories and offices — mostly back end and data, with simple interfaces so non-technical staff can use them without training.",
+    lede: "Internal apps for factories and offices: mostly back end and data, with simple interfaces so non-technical staff can use them without training.",
   },
   experience: {
     index: "02",
@@ -109,13 +109,13 @@ export const sections = {
     index: "03",
     label: "Education",
     title: "Always still learning.",
-    lede: "A formal foundation in computer science, plus a design education I keep adding to — one course and side quest at a time.",
+    lede: "A formal foundation in computer science, plus a design education I keep adding to: one course and side quest at a time.",
   },
   projects: {
     index: "04",
     label: "Projects",
     title: "Selected work.",
-    lede: "A few things I've built recently — some for clients, some for the joy of making a small idea real.",
+    lede: "A few things I've built recently: some for clients, some for the joy of making a small idea real.",
   },
   media: {
     index: "05",
@@ -163,7 +163,7 @@ export type Job = {
 
 export const experience: Job[] = [
   {
-    period: "Mar 2026 — Present",
+    period: "Mar 2026 to Present",
     role: "IT Intern",
     company: "PT. Shimada Karya Indonesia",
     companyUrl: "",
@@ -181,7 +181,7 @@ export const experience: Job[] = [
     tags: ["Laravel", "MySQL", "PHP"],
   },
   {
-    period: "Sep 2023 — Feb 2024",
+    period: "Sep 2023 to Feb 2024",
     role: "Multimedia Engineering Laboratory Assistant",
     company: "Institut Teknologi Nasional Bandung",
     companyUrl: "",
@@ -196,7 +196,7 @@ export const experience: Job[] = [
     tags: ["Adobe Animate", "Premiere Pro", "Blender"],
   },
   {
-    period: "Jul 2023 — Sep 2023",
+    period: "Jul 2023 to Sep 2023",
     role: "Web Developer Intern",
     company: "BPJS Kesehatan Kab. Subang",
     companyUrl: "",
@@ -212,7 +212,7 @@ export const experience: Job[] = [
     tags: ["React.js", "Tailwind CSS", "Supabase"],
   },
   {
-    period: "Feb 2023 — Jun 2023",
+    period: "Feb 2023 to Jun 2023",
     role: "Object Oriented Programming Laboratory Assistant",
     company: "Institut Teknologi Nasional Bandung",
     companyUrl: "",
@@ -230,7 +230,7 @@ export const experience: Job[] = [
 
 export const activities = [
   {
-    period: "Sep 2020 — Sep 2024",
+    period: "Sep 2020 to Sep 2024",
     role: "Head of Rumah Tangga Himpunan",
     org: "Himpunan Mahasiswa Informatika",
     bullets: [
@@ -239,7 +239,7 @@ export const activities = [
     ],
   },
   {
-    period: "2020 — 2024",
+    period: "2020 to 2024",
     role: "Staff",
     org: "Himpunan Mahasiswa Informatika (HMIF Itenas)",
     bullets: [
@@ -251,7 +251,7 @@ export const activities = [
 
 export const education = [
   {
-    period: "2020 — 2024",
+    period: "2020 to 2024",
     degree: "Bachelor of Informatics",
     school: "Institut Teknologi Nasional Bandung",
     note: "GPA 3.68 / 4.00",

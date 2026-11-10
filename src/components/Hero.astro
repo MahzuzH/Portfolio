@@ -5,6 +5,7 @@ import SocialIcon from "./SocialIcon.astro";
 const github = profile.socials.find((social) => social.label === "GitHub")?.href ?? "#";
 const linkedin = profile.socials.find((social) => social.label === "LinkedIn")?.href ?? "#";
 const letterboxd = `https://letterboxd.com/${profile.letterboxdUsername}/`;
+const roleLines = profile.role.split(" ");
 
 const socials = [
   { label: "GitHub", href: github, icon: "github" as const },
@@ -22,7 +23,7 @@ const socials = [
       <p class="hero__tag" data-reveal>Hey, I'm Mahzuz <span aria-hidden="true">👋</span></p>
 
       <h1 class="hero__title" data-reveal style="--reveal-delay: 60ms">
-        Software<br />Developer
+        {roleLines[0]}<br />{roleLines.slice(1).join(" ")}
       </h1>
 
       <p class="hero__intro" data-reveal style="--reveal-delay: 120ms">
@@ -31,7 +32,7 @@ const socials = [
 
       <div class="hero__actions" data-reveal style="--reveal-delay: 180ms">
         <a href="#projects" class="btn btn--lime">
-          View my work <span aria-hidden="true">↗</span>
+          See my projects <span aria-hidden="true">↗</span>
         </a>
         <a href={profile.resumeUrl} class="btn" download>
           Download resume <span aria-hidden="true">↓</span>

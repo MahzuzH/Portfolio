@@ -1,6 +1,6 @@
-# Mahzuz Hazman — Portfolio
+# Mahzuz Hazman Portfolio
 
-Personal site for **Mahzuz Hazman**, full-stack developer in Subang, Indonesia. Built with Astro 7 and Tailwind CSS 4 as a fully static single page: warm editorial layout with pixel-art details.
+Personal site for Mahzuz Hazman, software engineer in Subang, Indonesia. Built with Astro 7 and Tailwind CSS 4 as a static single page. The layout uses hard borders, offset shadows, grid textures, and lime, pink, and violet accents.
 
 Live: [mhzhzmn.web.id](https://mhzhzmn.web.id)
 
@@ -9,10 +9,10 @@ Live: [mhzhzmn.web.id](https://mhzhzmn.web.id)
 | Layer | Choice |
 |-------|--------|
 | Framework | Astro 7 (static output, no client framework) |
-| Styling | Tailwind CSS 4 + design tokens in `global.css` |
-| Fonts | Fontsource: Pixelify Sans, Space Grotesk, JetBrains Mono (self-hosted, Latin only) |
-| Scripts | TypeScript, plain DOM (`src/scripts/`) |
-| Tests | `node:test` — no extra dependency |
+| Styling | Tailwind CSS 4 + design tokens in `src/styles/global.css` |
+| Fonts | Fontsource: Archivo Black for display, Space Mono for labels and metadata. Body copy uses the system sans stack. |
+| Scripts | TypeScript, plain DOM in `src/scripts/main.ts` |
+| Tests | `node:test` runner configured. No test files yet. |
 | Deploy | GitHub Pages via GitHub Actions |
 
 ## Commands
@@ -22,69 +22,64 @@ npm install
 npm run dev       # http://localhost:4321
 npm run build     # static output in dist/
 npm run preview   # preview the production build
-npm test          # unit tests (node:test, no extra dependency)
+npm test          # node:test runner (currently no test files)
 npx astro check   # type check
 ```
 
 ## Content
 
-Everything editable lives in **`src/data/profile.ts`** — this is the live personal site, not a template.
+Everything editable lives in `src/data/profile.ts`. This is the live personal site, not a template.
 
-**`profile`** — name, role, location, timezone, email, phone, profile image, résumé path, Spotify playlist, Letterboxd username, top films and top games, intro, summary, quote, achievements, stats, facts, skill groups and social links.
+- `profile`: name, role, location, contact details, profile image, résumé path, intro, summary, quote, stats, facts, skills, and social links.
+- `sections`: section copy and index numbers. Current components use their own headings.
+- `experience`, `activities`, `education`, `certifications`, and `projects`: typed arrays. Add or remove an object without changing a component.
+- `marqueeItems`: extra skill list, currently unused by the site.
 
-**`sections`** — ordered nav list with index numbers, labels, titles and lede copy. `Nav.astro` and every section read from it, so numbering can't drift.
+Project thumbnails are built in `ProjectThumb.astro` with CSS mockups. The `shots` field is available, but the current thumbnail component does not render screenshots.
 
-**`experience`** → **`activities`** → **`education`** / **`certifications`** → **`projects`** — each exported as a typed array. Drop in a new object; adding or removing items needs no component changes.
+## Assets
 
-**`marqueeItems`** — the scrolling skill strip.
-
-Project cards fall back to a generated CSS cover (`dither`, `checker`, `rings`, `grid` or `stripes`, plus `coverBg`/`coverInk`) until screenshots are supplied.
-
-Empty strings are safe everywhere: an empty `resumeUrl` shows "Ask for my full résumé", an empty project `repo` hides the source link, and an empty `companyUrl` renders the company as plain text.
-
-### Assets
-
-- `public/profile.webp` — 400×400 portrait (WebP keeps it small)
-- `public/mahzuz-hazman-resume.pdf` — linked from the hero and contact section
-- `public/project/<project>/…webp` — project screenshots for the carousel; set them on a project via `shots` and `shotsAlt`
-- `src/assets/media/` — film posters and game covers, imported in `profile.ts` and optimized by Astro
+- `public/profile.webp`: 899×899 portrait, preloaded in `Layout.astro`.
+- `public/mahzuz-hazman-resume.pdf`: linked from the hero and experience section.
+- `public/project/sefya/`: screenshots, currently not referenced by a page.
+- `src/assets/media/`: film posters and game covers, currently unused.
+- `public/favicon.svg` and `public/robots.txt`: site icon and crawler rules.
 
 ## Design notes
 
-- **Display type:** Pixelify Sans
-- **Body type:** Space Grotesk
-- **Mono labels:** JetBrains Mono
-- **Palette:** warm paper, ink, vermilion accent, pastel covers. Dark mode swaps the tokens in `global.css`.
-- **Pixel language:** square corners, 1.5px rules, hard offset shadows, dot grids, dithered covers, stepped hover transitions.
-- Fonts are self-hosted via Fontsource (Latin subsets only), so the site has no runtime dependency on Google Fonts.
+- Display type: Archivo Black
+- Body type: system sans stack
+- Mono labels and metadata: Space Mono
+- Palette: warm paper, black ink, lime, pink, and violet. The site has no dark mode.
+- Surface language: 3px black borders, offset shadows, grid textures, square corners, and a pixelated portrait.
+- Fonts are self-hosted via Fontsource, so the site has no runtime dependency on Google Fonts.
 
 ## Structure
 
 ```text
 src/
-├─ data/profile.ts          # all site content + section list
-├─ layouts/Layout.astro     # head, fonts, SEO, theme init, scripts
-├─ components/              # nav, hero, each section, covers, carousel, footer
+├─ data/profile.ts          # site content and section copy
+├─ layouts/Layout.astro     # head, SEO, skip link, shared scripts
+├─ components/              # nav, hero, sections, thumbnails, footer
 ├─ pages/index.astro        # single-page assembly
 ├─ pages/404.astro
-├─ scripts/main.ts          # menu, tabs, scroll spy, reveal, copy, clock, theme
-├─ scripts/spotify.ts       # playlist URL parsing (+ spotify.test.ts)
-├─ styles/global.css        # design system + responsive styles
-└─ assets/media/            # poster and cover images
-public/                     # portrait, résumé, project shots, favicon, robots.txt
+├─ pages/blog.astro
+├─ scripts/main.ts          # menu, carousel, scroll reveal
+├─ styles/global.css        # design tokens, components, responsive styles
+└─ assets/media/            # unused poster and cover images
+public/                     # portrait, résumé, favicon, robots.txt
 ```
 
-## Accessibility & performance
+## Accessibility and performance
 
-- Semantic landmarks and heading order
-- Skip link, visible focus states, keyboard-friendly menu and media tabs
-- `prefers-reduced-motion` support
-- Decorative visuals hidden from assistive tech
-- Static HTML/CSS/JS, no client framework, small WebP photo, poster thumbnails
-- Email is shown as text, not an image, and the copy button announces success
+- Semantic landmarks and heading order.
+- Skip link, visible focus states, keyboard-friendly menu and project carousel.
+- `prefers-reduced-motion` support.
+- Decorative project thumbnails hidden from assistive technology.
+- Static HTML/CSS/JS, no client framework, compressed WebP portrait, and a preloaded hero image.
 
 ## Deploy
 
-Push to `main` — `.github/workflows/deploy.yml` runs `astro check`, `npm test`, then builds and publishes to GitHub Pages. Works on any static host too: build command `npm run build`, output directory `dist`.
+Push to `main`. `.github/workflows/deploy.yml` runs `astro check`, `npm test`, then builds and publishes to GitHub Pages. The same build works on any static host: run `npm run build` and serve `dist`.
 
-The canonical, Open Graph and JSON-LD URLs all read `site` from `astro.config.mjs` (`https://mhzhzmn.web.id`). Change it there and nowhere else.
+The canonical, Open Graph, and JSON-LD URLs read `site` from `astro.config.mjs` (`https://mhzhzmn.web.id`). Change it there and nowhere else.

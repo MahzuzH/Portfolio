@@ -18,7 +18,9 @@ import ProjectThumb from "./ProjectThumb.astro";
 
   <div class="project-slides">
     {projects.map((project, index) => {
-      const detailHref = project.href !== "#" ? project.href : project.repo;
+      const isLive = project.href !== "#";
+      const detailHref = isLive ? project.href : project.repo;
+      const detailLabel = isLive ? "Visit live site" : "View source";
       return (
         <article class="project-slide" data-project-slide data-active={index === 0 ? "true" : "false"}>
           <div class="project__media">
@@ -41,7 +43,7 @@ import ProjectThumb from "./ProjectThumb.astro";
               target="_blank"
               rel="noopener noreferrer"
             >
-              View details <span aria-hidden="true">→</span>
+              {detailLabel} <span aria-hidden="true">→</span>
             </a>
           </div>
         </article>
