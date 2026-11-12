@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://mhzhzmn.web.id',
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.includes("/blog") })],
   vite: {
     plugins: [tailwindcss()], // untuk Tailwind v4
   },

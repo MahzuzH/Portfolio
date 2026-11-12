@@ -26,6 +26,9 @@ export const profile = {
   intro:
     "I'm a software developer from Subang. I build web applications with PHP, JavaScript and MySQL, and I like turning messy manual processes into tools that are simple to use.",
 
+  seoDescription:
+    "Mahzuz Hazman is a software developer in Subang, Indonesia. He builds Laravel and React web apps that replace manual internal processes with simple tools.",
+
   summary: [
     "I'm a full stack developer with hands-on experience in educational technology, internal corporate applications, and the health sector. I graduated from ITENAS Bandung with a degree in informatics. I've built a company ERP with production QR tracking and HR payroll modules, an internal link management platform during Kerja Praktik at BPJS Kesehatan, and taught multimedia and object-oriented programming in campus labs.",
     "What I enjoy most is adapting to whatever the system actually needs. Some work is all database schemas and back-end APIs with Laravel and MySQL; other work is a clean, readable interface in React and Tailwind. I'm eager to keep learning and to stay up to date with new technologies, and I'd rather understand a problem properly than reach for the newest tool.",

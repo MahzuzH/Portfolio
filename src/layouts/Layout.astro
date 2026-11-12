@@ -1,32 +1,73 @@
 ---
 
 import "../styles/global.css";
-import { profile } from "../data/profile";
+import { education, experience, profile } from "../data/profile";
 
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
+  preloadImage?: boolean;
+  includePerson?: boolean;
 }
 
 const {
   title = `${profile.name} | ${profile.role}`,
-  description = profile.intro,
+  description = profile.seoDescription,
+  noindex = false,
+  preloadImage = false,
+  includePerson = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const siteUrl = new URL("/", Astro.site).href;
 const image = new URL(profile.profileImage, Astro.site);
+const ogImage = new URL("/og-image.jpg", Astro.site);
+const letterboxd = `https://letterboxd.com/${profile.letterboxdUsername}/`;
+const currentJob = experience.find((job) => job.current);
 
 const personSchema = {
-  "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${siteUrl}#person`,
   name: profile.name,
   jobTitle: profile.role,
   description: profile.intro,
   email: `mailto:${profile.email}`,
-  url: canonical,
+  url: siteUrl,
   image: image.href,
-  sameAs: profile.socials.map((social) => social.href),
+  sameAs: [...profile.socials.map((social) => social.href), letterboxd],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Subang",
+    addressCountry: "ID",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: education[0]?.school,
+  },
+  ...(currentJob && {
+    worksFor: {
+      "@type": "Organization",
+      name: currentJob.company,
+    },
+  }),
+  knowsAbout: [...new Set(profile.skillGroups.flatMap((group) => group.items))],
 };
+
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": `${siteUrl}#website`,
+  url: siteUrl,
+  name: profile.name,
+  inLanguage: "en",
+};
+
+const structuredData = includePerson
+  ? {
+      "@context": "https://schema.org",
+      "@graph": [personSchema, websiteSchema],
+    }
+  : null;
 ---
 
 <!doctype html>
@@ -38,23 +79,39 @@ const personSchema = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content={profile.name} />
-    <meta name="theme-color" content="#ffffff" />
-    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#f4f2ed" />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large"}
+    />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preload" href={profile.profileImage} as="image" fetchpriority="high" />
+    {preloadImage && (
+      <link rel="preload" href={profile.profileImage} as="image" fetchpriority="high" />
+    )}
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={profile.name} />
-    <meta property="og:image" content={image.href} />
-    <meta property="og:image:alt" content={profile.profileImageAlt} />
+    <meta property="og:image" content={ogImage.href} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${profile.name}, ${profile.role}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.href} />
+    <meta name="twitter:image:alt" content={`${profile.name}, ${profile.role}`} />
 
     <script is:inline>
       document.documentElement.classList.add("js");
     </script>
-    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    {structuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    )}
     {import.meta.env.PROD && (
       <script
         is:inline
