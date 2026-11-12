@@ -55,6 +55,14 @@ const personSchema = {
       document.documentElement.classList.add("js");
     </script>
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    {import.meta.env.PROD && (
+      <script
+        is:inline
+        type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "f9058ef0e61c4768b655ff640993b124"}'
+      ></script>
+    )}
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>
