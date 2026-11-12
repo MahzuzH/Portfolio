@@ -6,106 +6,41 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const variant = project.thumb;
-const hasInnerLine = variant === "sefya" || variant === "bpjs";
-
-const qrPattern = [
-  "1111111",
-  "1000101",
-  "1011101",
-  "1010001",
-  "1011101",
-  "1000101",
-  "1111111",
-];
+const screenshot = project.shots?.[0];
 ---
 
-<div class:list={["thumb", `thumb--${variant}`, hasInnerLine && "thumb--line"]} aria-hidden="true">
-  <span class="thumb__plus"></span>
-  <span class="thumb__square"></span>
-
-  <div class="thumb__browser">
-    <div class="thumb__chrome">
-      <span class="thumb__dot"></span>
-      <span class="thumb__dot"></span>
-      <span class="thumb__dot"></span>
-      <span class="thumb__address"></span>
-    </div>
-
-    <div class="thumb__body">
-      <div class="thumb__left">
-        <p class="thumb__meta">{project.year} · {project.label}</p>
-        <p class="thumb__title">
-          <span>{project.thumbLines[0]}</span>
-          <span>{project.thumbLines[1]}</span>
-        </p>
-        <p class="thumb__tech">{project.tags.join(" / ")}</p>
-        <span class="thumb__btn">View project <span aria-hidden="true">→</span></span>
-      </div>
-    </div>
-
-    {variant === "sefya" && (
-      <div class="thumb__panel">
-        <div class="thumb__panel-head thumb__panel-head--pink">Patient report</div>
-        <div class="thumb__panel-body">
-          <div class="thumb__qr">
-            {qrPattern.map((row) =>
-              row.split("").map((cell) => (
-                <span class:list={["thumb__qr-cell", cell === "1" && "is-on"]}></span>
-              )),
-            )}
-          </div>
-          <div class="thumb__qr-side">
-            <p class="thumb__panel-label">Scan to view</p>
-            <span class="thumb__chip">Ready</span>
-            <span class="thumb__line"></span>
-            <span class="thumb__line thumb__line--short"></span>
-            <span class="thumb__line thumb__line--shorter"></span>
-          </div>
-        </div>
-        <span class="thumb__panel-btn thumb__panel-btn--violet">
-          Share report <span aria-hidden="true">→</span>
-        </span>
-      </div>
-    )}
-
-    {variant === "bpjs" && (
-      <div class="thumb__panel">
-        <div class="thumb__panel-head thumb__panel-head--lime">Link directory</div>
-        <div class="thumb__panel-body thumb__panel-body--stack">
-          {["Layanan publik", "Cek klaim", "Kantor cabang"].map((label) => (
-            <div class="thumb__link-row">
-              <span class="thumb__link-dot"></span>
-              <span class="thumb__link-label">{label}</span>
-              <span class="thumb__link-arrow" aria-hidden="true">→</span>
-            </div>
-          ))}
-        </div>
-        <span class="thumb__panel-btn thumb__panel-btn--violet">04 links</span>
-      </div>
-    )}
-
-    {variant === "skm" && (
-      <div class="thumb__panel">
-        <div class="thumb__panel-head thumb__panel-head--violet">Survey</div>
-        <div class="thumb__panel-body thumb__panel-body--stack">
-          <div class="thumb__stars">
-            {[0, 1, 2, 3, 4].map((star) => (
-              <span class:list={["thumb__star", star < 4 && "is-on"]} aria-hidden="true">★</span>
-            ))}
-          </div>
-          <p class="thumb__panel-label">Service quality</p>
-          <div class="thumb__radios">
-            {[0, 1, 2].map((row) => (
-              <div class="thumb__radio-row">
-                <span class:list={["thumb__radio", row === 0 && "is-on"]}></span>
-                <span class="thumb__line"></span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <span class="thumb__panel-btn thumb__panel-btn--violet">Submit</span>
-      </div>
-    )}
+{screenshot ? (
+  <div class="thumb thumb--shot">
+    <img
+      class="thumb__shot"
+      src={screenshot}
+      alt={project.shotsAlt ?? project.title}
+      width="1440"
+      height="690"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="thumb__badge">{project.badge}</span>
   </div>
-</div>
+) : (
+  <div
+    class:list={["thumb", "thumb--poster", `thumb--${project.cover}`]}
+    style={`--poster-bg: ${project.coverBg}; --poster-ink: ${project.coverInk};`}
+    aria-hidden="true"
+  >
+    <div class="thumb__poster-meta">
+      <span>{project.year}</span>
+      <span>{project.label}</span>
+    </div>
+
+    <p class="thumb__poster-title">
+      <span>{project.thumbLines[0]}</span>
+      <span>{project.thumbLines[1]}</span>
+    </p>
+
+    <div class="thumb__poster-footer">
+      <span class="thumb__poster-mark">{project.mark}</span>
+      <span class="thumb__poster-badge">{project.badge}</span>
+    </div>
+  </div>
+)}

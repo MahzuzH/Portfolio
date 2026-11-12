@@ -35,13 +35,13 @@ Everything editable lives in `src/data/profile.ts`. This is the live personal si
 - `experience`, `activities`, `education`, `certifications`, and `projects`: typed arrays. Add or remove an object without changing a component.
 - `marqueeItems`: extra skill list, currently unused by the site.
 
-Project thumbnails are built in `ProjectThumb.astro` with CSS mockups. The `shots` field is available, but the current thumbnail component does not render screenshots.
+Project thumbnails use the first `shots` image when present. Without a screenshot, `ProjectThumb.astro` renders a typographic poster from `coverBg`, `coverInk`, `cover`, `mark` and `thumbLines`.
 
 ## Assets
 
 - `public/profile.webp`: 899×899 portrait, preloaded in `Layout.astro`.
 - `public/mahzuz-hazman-resume.pdf`: linked from the hero and experience section.
-- `public/project/sefya/`: screenshots, currently not referenced by a page.
+- `public/project/sefya/`: homepage screenshot used as the project cover; extra shots kept for future galleries.
 - `src/assets/media/`: film posters and game covers, currently unused.
 - `public/favicon.svg` and `public/robots.txt`: site icon and crawler rules.
 

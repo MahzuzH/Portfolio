@@ -350,9 +350,8 @@ export type Project = {
   coverBg: string;
   coverInk: string;
   badge: string;
-  thumb: "sefya" | "bpjs" | "skm";
   thumbLines: string[];
-  /** Screenshot paths under public/. When set, the card shows a carousel instead of the CSS cover. */
+  /** Screenshot paths under public/. The first shot is used as the project cover. */
   shots?: string[];
   shotsAlt?: string;
 };
@@ -374,9 +373,8 @@ export const projects: Project[] = [
     coverBg: "#FF91A4",
     coverInk: "#15140E",
     badge: "Full-stack · Live",
-    thumb: "sefya",
     thumbLines: ["Sefya", "Dental Studio"],
-    shotsAlt: "Sefya Dental Studio",
+    shotsAlt: "Sefya Dental Studio homepage",
     shots: [
       "/project/sefya/home.webp",
       "/project/sefya/login.webp",
@@ -390,16 +388,15 @@ export const projects: Project[] = [
     year: "2023", // sesuaikan
     tagline: "A link management platform that makes BPJS services easier to reach.",
     description:
-      "A web platform that organizes BPJS-related links and services in one place, so users can find what they need without hunting through multiple sites. Built with React and Tailwind CSS, deployed on Vercel.",
-    tags: ["React", "Tailwind CSS", "Supabase", "Vercel"],
-    href: "https://bpjs-v2.vercel.app",
+      "A web platform that organizes BPJS-related links and services in one place, so users can find what they need without hunting through multiple sites. Built with React, Tailwind CSS and Supabase.",
+    tags: ["React", "Tailwind CSS", "Supabase"],
+    href: "#",
     repo: "https://github.com/MahzuzH/bpjs_v2",
     featured: false,
-    cover: "dither",
+    cover: "checker",
     coverBg: "#E6F0D9",
     coverInk: "#15140E",
-    badge: "Web app · Live",
-    thumb: "bpjs",
+    badge: "Web app · Offline",
     thumbLines: ["BPJS", "Link Hub"],
   },
   {
@@ -414,11 +411,10 @@ export const projects: Project[] = [
     href: "#",
     repo: "https://github.com/MahzuzH/skm_puskesmas",
     featured: false,
-    cover: "dither",
+    cover: "grid",
     coverBg: "#F6EBC8",
     coverInk: "#15140E",
     badge: "Coursework · Laravel",
-    thumb: "skm",
     thumbLines: ["SKM", "Puskesmas"],
   },
 ];
